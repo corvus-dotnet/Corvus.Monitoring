@@ -22,6 +22,7 @@ namespace Corvus.Monitoring.Instrumentation
         /// Report an exception.
         /// </summary>
         /// <param name="x">The exception that occurred.</param>
-        void ReportException(Exception x);
+        /// <param name="additionalDetail">Optional additional properties and metrics.</param>
+        void ReportException(Exception x, AdditionalInstrumentationDetail additionalDetail = null);
     }
 }

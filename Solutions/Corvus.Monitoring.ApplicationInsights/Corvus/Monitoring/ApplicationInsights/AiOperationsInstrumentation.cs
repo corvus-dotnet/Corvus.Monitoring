@@ -4,6 +4,7 @@
 
 namespace Corvus.Monitoring.ApplicationInsights
 {
+    using System.Collections.Generic;
     using Corvus.Monitoring.Instrumentation;
     using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.DataContracts;
@@ -28,9 +29,26 @@ namespace Corvus.Monitoring.ApplicationInsights
         }
 
         /// <inheritdoc />
-        public IOperationInstance StartOperation(string name)
+        public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail additionalDetail)
         {
-            return new Operation(this.telemetryClient.StartOperation<RequestTelemetry>(name));
+            IOperationHolder<RequestTelemetry> operationHolder = this.telemetryClient.StartOperation<RequestTelemetry>(name);
+            if (additionalDetail?.Properties != null)
+            {
+                foreach (KeyValuePair<string, string> property in additionalDetail.Properties)
+                {
+                    operationHolder.Telemetry.Properties.Add(property);
+                }
+            }
+
+            if (additionalDetail?.Metrics != null)
+            {
+                foreach (KeyValuePair<string, double> metric in additionalDetail.Metrics)
+                {
+                    operationHolder.Telemetry.Metrics.Add(metric);
+                }
+            }
+
+            return new Operation(operationHolder);
         }
 
         private class Operation : IOperationInstance

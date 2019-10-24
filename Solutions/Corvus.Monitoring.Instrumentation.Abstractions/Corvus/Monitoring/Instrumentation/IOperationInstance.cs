@@ -11,9 +11,9 @@ namespace Corvus.Monitoring.Instrumentation
     /// </summary>
     /// <remarks>
     /// <para>
-    /// When you call <see cref="IOperationsInstrumentation.StartOperation(string)"/>, it returns
-    /// an implementation of this interface. You should dispose it when the operation completes.
-    /// So the normal usage model would look something like this:
+    /// When you call <see cref="IOperationsInstrumentation.StartOperation(string, AdditionalInstrumentationDetail)"/>,
+    /// it returns an implementation of this interface. You should dispose it when the operation
+    /// completes. So the normal usage model would look something like this:
     /// </para>
     /// <code>
     /// <![CDATA[
