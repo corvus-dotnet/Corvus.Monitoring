@@ -32,20 +32,88 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         }
 
         [Test]
-        public void WhenOperationWithPropertiesFinishesTelemetryIncludesProperties()
+        public void WhenOperationWithUpFrontPropertiesFinishesTelemetryIncludesProperties()
         {
-            const string k1 = "k1", v1 = "v1";
-            const string k2 = "k2", v2 = "v2";
-            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation(
+                "op", AdditionalDetailTests.DetailWithProperties))
             {
-                operation.AddOperationProperty(k1, v1);
-                operation.AddOperationProperty(k2, v2);
             }
 
             RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
-            Assert.AreEqual(2, telemetry.Properties.Count, "Property count");
-            Assert.AreEqual(v1, telemetry.Properties[k1], "Value for " + k1);
-            Assert.AreEqual(v2, telemetry.Properties[k2], "Value for " + k2);
+            AdditionalDetailTests.AssertPropertiesPresent(telemetry);
+        }
+
+        [Test]
+        public void WhenOperationWithPostStartPropertiesFinishesTelemetryIncludesProperties()
+        {
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
+            {
+                operation.AddOperationDetail(AdditionalDetailTests.DetailWithProperties);
+            }
+
+            RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
+            AdditionalDetailTests.AssertPropertiesPresent(telemetry);
+        }
+
+        [Test]
+        public void WhenOperationWithUpFrontMetricsFinishesTelemetryIncludesMetrics()
+        {
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation(
+                "op", AdditionalDetailTests.DetailWithMetrics))
+            {
+            }
+
+            RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
+            AdditionalDetailTests.AssertMetricsPresent(telemetry);
+        }
+
+        [Test]
+        public void WhenOperationWithPostStartMetricsFinishesTelemetryIncludesMetrics()
+        {
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
+            {
+                operation.AddOperationDetail(AdditionalDetailTests.DetailWithMetrics);
+            }
+
+            RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
+            AdditionalDetailTests.AssertMetricsPresent(telemetry);
+        }
+
+        [Test]
+        public void WhenOperationWithUpFrontPropertiesAndMetricsFinishesTelemetryIncludesPropertiesAndMetrics()
+        {
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation(
+                "op", AdditionalDetailTests.DetailWithPropertiesAndMetrics))
+            {
+            }
+
+            RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
+            AdditionalDetailTests.AssertPropertiesAndMetricsPresent(telemetry);
+        }
+
+        [Test]
+        public void WhenOperationWithPropertiesAndMetricsFinishesTelemetryIncludesPropertiesAndMetrics()
+        {
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
+            {
+                operation.AddOperationDetail(AdditionalDetailTests.DetailWithPropertiesAndMetrics);
+            }
+
+            RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
+            AdditionalDetailTests.AssertPropertiesAndMetricsPresent(telemetry);
+        }
+
+        [Test]
+        public void WhenOperationWithPostStartPropertiesAndMetricsAddedSeparatelyFinishesTelemetryIncludesPropertiesAndMetrics()
+        {
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
+            {
+                operation.AddOperationDetail(AdditionalDetailTests.DetailWithProperties);
+                operation.AddOperationDetail(AdditionalDetailTests.DetailWithMetrics);
+            }
+
+            RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
+            AdditionalDetailTests.AssertPropertiesAndMetricsPresent(telemetry);
         }
 
         [Test]

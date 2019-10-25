@@ -30,10 +30,9 @@ namespace Corvus.Monitoring.Instrumentation
     public interface IOperationInstance : IDisposable
     {
         /// <summary>
-        /// Adds an entry to the dictionary of properties associated with this request.
+        /// Adds one or more entries to the additional data associated with this request.
         /// </summary>
-        /// <param name="key">Indicates what kind of property this is.</param>
-        /// <param name="value">The property value.</param>
-        void AddOperationProperty(string key, string value);
+        /// <param name="detail">The detail to add.</param>
+        void AddOperationDetail(AdditionalInstrumentationDetail detail);
     }
 }

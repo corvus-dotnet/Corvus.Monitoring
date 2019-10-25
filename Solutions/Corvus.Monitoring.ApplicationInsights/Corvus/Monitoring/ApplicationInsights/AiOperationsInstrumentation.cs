@@ -60,9 +60,23 @@ namespace Corvus.Monitoring.ApplicationInsights
                 this.operationHolder = operationHolder;
             }
 
-            public void AddOperationProperty(string key, string value)
+            public void AddOperationDetail(AdditionalInstrumentationDetail detail)
             {
-                this.operationHolder.Telemetry.Properties.Add(key, value);
+                if (detail.Properties != null)
+                {
+                    foreach (KeyValuePair<string, string> property in detail.Properties)
+                    {
+                        this.operationHolder.Telemetry.Properties.Add(property);
+                    }
+                }
+
+                if (detail.Metrics != null)
+                {
+                    foreach (KeyValuePair<string, double> metric in detail.Metrics)
+                    {
+                        this.operationHolder.Telemetry.Metrics.Add(metric);
+                    }
+                }
             }
 
             public void Dispose()

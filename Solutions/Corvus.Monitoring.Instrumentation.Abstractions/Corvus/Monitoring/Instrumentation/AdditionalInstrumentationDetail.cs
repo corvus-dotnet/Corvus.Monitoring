@@ -17,13 +17,31 @@ namespace Corvus.Monitoring.Instrumentation
     /// </remarks>
     public class AdditionalInstrumentationDetail
     {
-        private Dictionary<string, string> properties;
-        private Dictionary<string, double> metrics;
+        private IDictionary<string, string> properties;
+        private IDictionary<string, double> metrics;
+
+        /// <summary>
+        /// Creates a <see cref="AdditionalInstrumentationDetail"/>.
+        /// </summary>
+        public AdditionalInstrumentationDetail()
+        {
+        }
+
+        /// <summary>
+        /// Creates a <see cref="AdditionalInstrumentationDetail"/> with the specified properties and/or metrics.
+        /// </summary>
+        /// <param name="properties">Value for <see cref="Properties"/>.</param>
+        /// <param name="metrics">Value for <see cref="Metrics"/>.</param>
+        public AdditionalInstrumentationDetail(IDictionary<string, string> properties, IDictionary<string, double> metrics)
+        {
+            this.properties = properties;
+            this.metrics = metrics;
+        }
 
         /// <summary>
         /// Gets the dictionary of string properties to associate with some instrumentation.
         /// </summary>
-        public Dictionary<string, string> Properties => this.properties ?? (this.properties = new Dictionary<string, string>());
+        public IDictionary<string, string> Properties => this.properties ?? (this.properties = new Dictionary<string, string>());
 
         /// <summary>
         /// Gets the dictionary of numeric properties to associate with some instrumentation.
