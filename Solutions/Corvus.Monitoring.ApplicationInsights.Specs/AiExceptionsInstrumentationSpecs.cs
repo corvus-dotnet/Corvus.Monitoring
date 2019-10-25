@@ -5,6 +5,7 @@
 namespace Corvus.Monitoring.ApplicationInsights.Specs
 {
     using System;
+    using Corvus.Monitoring.Instrumentation;
     using Microsoft.ApplicationInsights.DataContracts;
     using NUnit.Framework;
 
@@ -42,13 +43,40 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             Assert.AreEqual(requestTelemetry.Id, exceptionTelemetry.Context.Operation.ParentId);
         }
 
+        [Test]
+        public void WhenExceptionReportedWithPropertiesTelemetryIncludesProperties()
+        {
+            this.ThrowReportAndCatchException(AdditionalDetailTests.DetailWithProperties);
+
+            ExceptionTelemetry telemetry = this.GetSingleExceptionTelemetry();
+            AdditionalDetailTests.AssertPropertiesPresent(telemetry);
+        }
+
+        [Test]
+        public void WhenExceptionReportedWithMetricsTelemetryIncludesMetrics()
+        {
+            this.ThrowReportAndCatchException(AdditionalDetailTests.DetailWithMetrics);
+
+            ExceptionTelemetry telemetry = this.GetSingleExceptionTelemetry();
+            AdditionalDetailTests.AssertMetricsPresent(telemetry);
+        }
+
+        [Test]
+        public void WhenExceptionReportedWithPropertiesAndMetricsTelemetryIncludesPropertiesAndMetrics()
+        {
+            this.ThrowReportAndCatchException(AdditionalDetailTests.DetailWithPropertiesAndMetrics);
+            ExceptionTelemetry telemetry = this.GetSingleExceptionTelemetry();
+            AdditionalDetailTests.AssertPropertiesAndMetricsPresent(telemetry);
+        }
+
         private ExceptionTelemetry GetSingleExceptionTelemetry()
             => this.Ai.GetSingleTelemetry<ExceptionTelemetry>();
 
         private (ExceptionTelemetry exception, RequestTelemetry operation) GetExceptionAndParentRequestTelemetry()
             => this.Ai.GetParentOperationAndExceptionTelemetry<ExceptionTelemetry, RequestTelemetry>();
 
-        private ArgumentException ThrowReportAndCatchException()
+        private ArgumentException ThrowReportAndCatchException(
+            AdditionalInstrumentationDetail additionalDetail = null)
         {
             ArgumentException ax;
             try
@@ -58,7 +86,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             catch (ArgumentException x)
             {
                 ax = x;
-                this.Ai.ExceptionsInstrumentation.ReportException(x);
+                this.Ai.ExceptionsInstrumentation.ReportException(x, additionalDetail);
             }
 
             return ax;

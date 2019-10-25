@@ -11,9 +11,9 @@ namespace Corvus.Monitoring.Instrumentation
     /// </summary>
     /// <remarks>
     /// <para>
-    /// When you call <see cref="IOperationsInstrumentation.StartOperation(string)"/>, it returns
-    /// an implementation of this interface. You should dispose it when the operation completes.
-    /// So the normal usage model would look something like this:
+    /// When you call <see cref="IOperationsInstrumentation.StartOperation(string, AdditionalInstrumentationDetail)"/>,
+    /// it returns an implementation of this interface. You should dispose it when the operation
+    /// completes. So the normal usage model would look something like this:
     /// </para>
     /// <code>
     /// <![CDATA[
@@ -30,10 +30,9 @@ namespace Corvus.Monitoring.Instrumentation
     public interface IOperationInstance : IDisposable
     {
         /// <summary>
-        /// Adds an entry to the dictionary of properties associated with this request.
+        /// Adds one or more entries to the additional data associated with this request.
         /// </summary>
-        /// <param name="key">Indicates what kind of property this is.</param>
-        /// <param name="value">The property value.</param>
-        void AddOperationProperty(string key, string value);
+        /// <param name="detail">The detail to add.</param>
+        void AddOperationDetail(AdditionalInstrumentationDetail detail);
     }
 }
