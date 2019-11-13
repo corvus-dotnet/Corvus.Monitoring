@@ -2,9 +2,12 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+#nullable enable
+
 namespace Corvus.Monitoring.Instrumentation
 {
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     /// <summary>
     /// Additional information supplied with instrumentation.
@@ -17,9 +20,6 @@ namespace Corvus.Monitoring.Instrumentation
     /// </remarks>
     public class AdditionalInstrumentationDetail
     {
-        private IDictionary<string, string> properties;
-        private IDictionary<string, double> metrics;
-
         /// <summary>
         /// Creates a <see cref="AdditionalInstrumentationDetail"/>.
         /// </summary>
@@ -32,20 +32,38 @@ namespace Corvus.Monitoring.Instrumentation
         /// </summary>
         /// <param name="properties">Value for <see cref="Properties"/>.</param>
         /// <param name="metrics">Value for <see cref="Metrics"/>.</param>
-        public AdditionalInstrumentationDetail(IDictionary<string, string> properties, IDictionary<string, double> metrics)
+        public AdditionalInstrumentationDetail(IDictionary<string, string>? properties, IDictionary<string, double>? metrics)
         {
-            this.properties = properties;
-            this.metrics = metrics;
+            this.PropertiesIfPresent = properties;
+            this.MetricsIfPresent = metrics;
         }
 
         /// <summary>
-        /// Gets the dictionary of string properties to associate with some instrumentation.
+        /// Gets the dictionary of string properties to associate with some instrumentation. If
+        /// this property does not yet contain a dictionary, reading its value will cause the
+        /// dictionary to be created.
         /// </summary>
-        public IDictionary<string, string> Properties => this.properties ?? (this.properties = new Dictionary<string, string>());
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] // Evaluation has side effects.
+        public IDictionary<string, string> Properties => this.PropertiesIfPresent ?? (this.PropertiesIfPresent = new Dictionary<string, string>());
 
         /// <summary>
-        /// Gets the dictionary of numeric properties to associate with some instrumentation.
+        /// Gets the dictionary of numeric properties to associate with some instrumentation. If
+        /// this property does not yet contain a dictionary, reading its value will cause the
+        /// dictionary to be created.
         /// </summary>
-        public IDictionary<string, double> Metrics => this.metrics ?? (this.metrics = new Dictionary<string, double>());
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] // Evaluation has side effects.
+        public IDictionary<string, double> Metrics => this.MetricsIfPresent ?? (this.MetricsIfPresent = new Dictionary<string, double>());
+
+        /// <summary>
+        /// Gets the dictionary of string properties to associate with some instrumentation, or
+        /// null if properties are not being set.
+        /// </summary>
+        public IDictionary<string, string>? PropertiesIfPresent { get; private set; }
+
+        /// <summary>
+        /// Gets the dictionary of metrics to associate with some instrumentation, or
+        /// null if metrics are not being set.
+        /// </summary>
+        public IDictionary<string, double>? MetricsIfPresent { get; private set; }
     }
 }

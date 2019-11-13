@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.ApplicationInsights.Specs", "Corvus.Monitoring.ApplicationInsights.Specs\Corvus.Monitoring.ApplicationInsights.Specs.csproj", "{35CB3555-E291-4C83-B97C-E9153A2E3F5F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.Instrumentation.Abstractions.Specs", "Corvus.Monitoring.Instrumentation.Abstractions.Specs\Corvus.Monitoring.Instrumentation.Abstractions.Specs.csproj", "{A9A50DE9-9F2B-493F-937C-585DD83F59CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{35CB3555-E291-4C83-B97C-E9153A2E3F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35CB3555-E291-4C83-B97C-E9153A2E3F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35CB3555-E291-4C83-B97C-E9153A2E3F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9A50DE9-9F2B-493F-937C-585DD83F59CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9A50DE9-9F2B-493F-937C-585DD83F59CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9A50DE9-9F2B-493F-937C-585DD83F59CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9A50DE9-9F2B-493F-937C-585DD83F59CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

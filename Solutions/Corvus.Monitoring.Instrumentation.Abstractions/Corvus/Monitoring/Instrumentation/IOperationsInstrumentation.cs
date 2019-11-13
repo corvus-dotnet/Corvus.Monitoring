@@ -20,11 +20,11 @@ namespace Corvus.Monitoring.Instrumentation
         /// Reports that a new operation has started.
         /// </summary>
         /// <param name="name">A short, descriptive operation name.</param>
-        /// <param name="otherDetail">Optional additional properties and metrics.</param>
+        /// <param name="additionalDetail">Optional additional properties and metrics.</param>
         /// <returns>
         /// An <see cref="IOperationInstance"/> that must be disposed once this operation
         /// completes.
         /// </returns>
-        IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail otherDetail = null);
+        IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail additionalDetail = null);
     }
 }
