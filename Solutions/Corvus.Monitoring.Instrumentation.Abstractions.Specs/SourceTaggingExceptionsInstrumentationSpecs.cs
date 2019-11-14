@@ -1,6 +1,7 @@
 namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using System;
+    using Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes;
     using NUnit.Framework;
 
     public class SourceTaggingExceptionsInstrumentationSpecs : SourceTaggingSpecsBase
@@ -11,14 +12,14 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         [Test]
         public void WhenExceptionWithNoAdditionalInfoIsSentItShouldIncludeSource()
         {
-            SourceTaggingTestContext.ExceptionDetail ex1Detail = this.ThrowReportAndCatchException1();
+            ExceptionDetail ex1Detail = this.ThrowReportAndCatchException1();
 
             IExceptionsInstrumentation<TestType2> exi2 = this.Context.GetExceptionsInstrumentation<TestType2>();
             var ex2 = new Exception("Another");
             exi2.ReportException(ex2);
 
             Assert.AreEqual(2, this.Context.Exceptions.Count, "Exception count");
-            SourceTaggingTestContext.ExceptionDetail ex2Detail = this.Context.Exceptions[1];
+            ExceptionDetail ex2Detail = this.Context.Exceptions[1];
             Assert.AreSame(ex2, ex2Detail.Exception, "Exception (2)");
 
             Assert.AreEqual(1, ex1Detail.AdditionalDetail?.Properties.Count, "Property count (1)");
@@ -32,7 +33,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         public void WhenExceptionWithAdditionalInfoWithNoPropertiesOrMetricsIsSentItShouldIncludeSource()
         {
             var suppliedDetail = new AdditionalInstrumentationDetail();
-            SourceTaggingTestContext.ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
+            ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
             Assert.AreEqual(1, exDetail.AdditionalDetail?.Properties.Count, "Property count");
             Assert.AreEqual(typeof(TestType1).FullName, exDetail.AdditionalDetail.Properties[this.Context.SourcePropertyName], "Source");
@@ -46,7 +47,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
                 Metrics = { { "m1", 42.0 } }
             };
-            SourceTaggingTestContext.ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
+            ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
             Assert.AreEqual(2, exDetail.AdditionalDetail?.Properties.Count, "Property count");
             Assert.AreEqual(typeof(TestType1).FullName, exDetail.AdditionalDetail.Properties[this.Context.SourcePropertyName], "Source");
@@ -61,7 +62,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
                 Metrics = { { "m1", 42.0 } }
             };
-            SourceTaggingTestContext.ExceptionDetail opDetail = this.ThrowReportAndCatchException1(suppliedDetail);
+            ExceptionDetail opDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
             Assert.AreSame(suppliedDetail.Metrics, opDetail.AdditionalDetail.Metrics);
         }
@@ -90,7 +91,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } }
             };
-            SourceTaggingTestContext.ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
+            ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
             Assert.AreEqual(2, exDetail.AdditionalDetail?.Properties.Count, "Property count");
             Assert.AreEqual(typeof(TestType1).FullName, exDetail.AdditionalDetail.Properties[this.Context.SourcePropertyName], "Source");
@@ -104,13 +105,13 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } }
             };
-            SourceTaggingTestContext.ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
+            ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
             Assert.IsNull(exDetail.AdditionalDetail.MetricsIfPresent);
         }
 
 
-        private SourceTaggingTestContext.ExceptionDetail ThrowReportAndCatchException1(
+        private ExceptionDetail ThrowReportAndCatchException1(
             AdditionalInstrumentationDetail additionalDetail = null)
         {
             IExceptionsInstrumentation<TestType1> exi1 = this.Context.GetExceptionsInstrumentation<TestType1>();
@@ -127,7 +128,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             }
 
             Assert.AreEqual(1, this.Context.Exceptions.Count, "Exception count");
-            SourceTaggingTestContext.ExceptionDetail exDetail = this.Context.Exceptions[0];
+            ExceptionDetail exDetail = this.Context.Exceptions[0];
 
             Assert.AreSame(ax, exDetail.Exception, "Exception");
             return exDetail;
