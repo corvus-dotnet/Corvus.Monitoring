@@ -1,5 +1,6 @@
 namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
+    using Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes;
     using NUnit.Framework;
 
     public class SourceTaggingOperationsInstrumentationSpecs : SourceTaggingSpecsBase
@@ -12,7 +13,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         [Test]
         public void WhenOperationWithNoAdditionalInfoIsSentItShouldIncludeSource()
         {
-            SourceTaggingTestContext.OperationDetail op1Detail = this.ReportOperation1();
+            OperationDetail op1Detail = this.ReportOperation1();
 
             IOperationsInstrumentation<TestType2> opi2 = this.Context.GetOperationsInstrumentation<TestType2>();
             using (opi2.StartOperation(OpName2))
@@ -20,7 +21,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             }
 
             Assert.AreEqual(2, this.Context.Operations.Count, "Operation count");
-            SourceTaggingTestContext.OperationDetail op2Detail = this.Context.Operations[1];
+            OperationDetail op2Detail = this.Context.Operations[1];
             Assert.AreEqual(OpName2, op2Detail.Name, "Name (2)");
 
             Assert.AreEqual(1, op1Detail.AdditionalDetail?.Properties.Count, "Property count (1)");
@@ -34,7 +35,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         public void WhenOperationWithAdditionalInfoWithNoPropertiesOrMetricsIsSentItShouldIncludeSource()
         {
             var suppliedDetail = new AdditionalInstrumentationDetail();
-            SourceTaggingTestContext.OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
+            OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
             Assert.AreEqual(1, opDetail.AdditionalDetail?.Properties.Count, "Property count");
             Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail.Properties[this.Context.SourcePropertyName], "Source");
@@ -48,7 +49,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
                 Metrics = { { "m1", 42.0 } }
             };
-            SourceTaggingTestContext.OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
+            OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
             Assert.AreEqual(2, opDetail.AdditionalDetail?.Properties.Count, "Property count");
             Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail.Properties[this.Context.SourcePropertyName], "Source");
@@ -63,7 +64,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
                 Metrics = { { "m1", 42.0 } }
             };
-            SourceTaggingTestContext.OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
+            OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
             Assert.AreSame(suppliedDetail.Metrics, opDetail.AdditionalDetail.Metrics);
         }
@@ -92,7 +93,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } }
             };
-            SourceTaggingTestContext.OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
+            OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
             Assert.AreEqual(2, opDetail.AdditionalDetail?.Properties.Count, "Property count");
             Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail.Properties[this.Context.SourcePropertyName], "Source");
@@ -106,7 +107,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } }
             };
-            SourceTaggingTestContext.OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
+            OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
             Assert.IsNull(opDetail.AdditionalDetail.MetricsIfPresent);
         }
@@ -118,7 +119,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 
             using (opi1.StartOperation(OpName1))
             {
-                SourceTaggingTestContext.OperationDetail opDetail = this.Context.Operations[0];
+                OperationDetail opDetail = this.Context.Operations[0];
                 Assert.IsFalse(opDetail.IsDisposed);
             }
         }
@@ -131,8 +132,8 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             using (opi1.StartOperation(OpName1))
             {
             }
-            
-            SourceTaggingTestContext.OperationDetail opDetail = this.Context.Operations[0];
+
+            OperationDetail opDetail = this.Context.Operations[0];
             Assert.IsTrue(opDetail.IsDisposed);
         }
 
@@ -158,7 +159,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
                 op.AddOperationDetail(furtherDetail2);
             }
 
-            SourceTaggingTestContext.OperationDetail opDetail = this.Context.Operations[0];
+            OperationDetail opDetail = this.Context.Operations[0];
             Assert.AreEqual(2, opDetail.FurtherDetails.Count, "FurtherDetails.Count");
 
             Assert.AreSame(furtherDetail1, opDetail.FurtherDetails[0], "FurtherDetails[0]");
@@ -180,7 +181,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(99.0, furtherDetail2.Metrics["m2"]);
         }
 
-        private SourceTaggingTestContext.OperationDetail ReportOperation1(AdditionalInstrumentationDetail suppliedDetail = null)
+        private OperationDetail ReportOperation1(AdditionalInstrumentationDetail suppliedDetail = null)
         {
             IOperationsInstrumentation<TestType1> opi1 = this.Context.GetOperationsInstrumentation<TestType1>();
 
@@ -189,7 +190,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             }
 
             Assert.AreEqual(1, this.Context.Operations.Count, "Operation count");
-            SourceTaggingTestContext.OperationDetail opDetail = this.Context.Operations[0];
+            OperationDetail opDetail = this.Context.Operations[0];
 
             Assert.AreEqual(OpName1, opDetail.Name, "Name");
             return opDetail;
