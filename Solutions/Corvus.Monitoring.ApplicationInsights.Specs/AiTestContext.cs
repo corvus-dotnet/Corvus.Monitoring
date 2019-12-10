@@ -24,7 +24,12 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// <summary>
         /// Creates a <see cref="AiTestContext"/>.
         /// </summary>
-        public AiTestContext()
+        /// <param name="telemetryClientViaDi">
+        /// Indicates whether to use the DI initialization mechanism that obtains the <see cref="TelemetryClient"/>
+        /// as a dependency. (In general it's preferable not to do that, but the Azure Functions SDK requires it,
+        /// so we support it.)
+        /// </param>
+        public AiTestContext(bool telemetryClientViaDi)
         {
             var items = new List<ITelemetry>();
             this.Items = items;
@@ -35,7 +40,15 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             this.TelemetryClient = new TelemetryClient(telemetryConfig);
 
             var services = new ServiceCollection();
-            services.AddApplicationInsightsInstrumentationTelemetry(this.TelemetryClient);
+            if (telemetryClientViaDi)
+            {
+                services.AddSingleton(this.TelemetryClient);
+                services.AddApplicationInsightsInstrumentationTelemetry();
+            }
+            else
+            {
+                services.AddApplicationInsightsInstrumentationTelemetry(this.TelemetryClient);
+            }
 
             this.serviceProvider = services.BuildServiceProvider();
 

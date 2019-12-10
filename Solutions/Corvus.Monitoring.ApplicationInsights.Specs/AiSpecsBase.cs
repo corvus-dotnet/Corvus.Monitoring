@@ -11,6 +11,21 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
     /// </summary>
     public abstract class AiSpecsBase
     {
+        private readonly bool telemetryClientViaDi;
+
+        /// <summary>
+        /// Creates a <see cref="AiSpecsBase"/>.
+        /// </summary>
+        /// <param name="telemetryClientViaDi">
+        /// Pass <c>true</c> to use the DI initialization mechanism in which the Application Insights
+        /// <c>TelemetryClient</c> is obtained through DI. Pass <c>false</c> to use the mechanism in
+        /// which it is not available via DI and is instead passed in directly during initialization.
+        /// </param>
+        protected AiSpecsBase(bool telemetryClientViaDi = false)
+        {
+            this.telemetryClientViaDi = telemetryClientViaDi;
+        }
+
         /// <summary>
         /// Gets the <see cref="AiTestContext"/>.
         /// </summary>
@@ -28,7 +43,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [SetUp]
         public void Setup()
         {
-            this.Ai = new AiTestContext();
+            this.Ai = new AiTestContext(this.telemetryClientViaDi);
         }
 
         /// <summary>
