@@ -110,7 +110,6 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.IsNull(exDetail.AdditionalDetail.MetricsIfPresent);
         }
 
-
         private ExceptionDetail ThrowReportAndCatchException1(
             AdditionalInstrumentationDetail additionalDetail = null)
         {

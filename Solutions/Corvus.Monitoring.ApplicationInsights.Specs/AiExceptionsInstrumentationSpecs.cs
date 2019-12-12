@@ -18,9 +18,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [Test]
         public void WhenExceptionReportedTelemetryIsSent()
         {
-            ArgumentException ax;
-
-            ax = this.ThrowReportAndCatchException();
+            ArgumentException ax = this.ThrowReportAndCatchException();
 
             ExceptionTelemetry telemetry = this.GetSingleExceptionTelemetry();
             Assert.AreSame(ax, telemetry.Exception);
