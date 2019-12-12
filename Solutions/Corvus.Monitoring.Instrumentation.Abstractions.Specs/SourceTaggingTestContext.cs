@@ -25,7 +25,7 @@
         public IReadOnlyList<ExceptionDetail> Exceptions => this.fakeInstrumentationSinks.Exceptions;
 
         public IOperationsInstrumentation<T> GetOperationsInstrumentation<T>() => this.serviceProvider.GetRequiredService<IOperationsInstrumentation<T>>();
-        
+
         public IExceptionsInstrumentation<T> GetExceptionsInstrumentation<T>() => this.serviceProvider.GetRequiredService<IExceptionsInstrumentation<T>>();
 
         public void Dispose()

@@ -83,7 +83,6 @@
             public GenericOperationsTarget(FakeInstrumentationSinks parent) : base(parent.genericOperations) { }
         }
 
-
         private class ExceptionsTargetBase<T> : IExceptionsInstrumentation<T>
         {
             private readonly List<ExceptionDetail> exceptionsList;
