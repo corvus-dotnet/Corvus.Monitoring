@@ -1,6 +1,7 @@
 namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using System;
+    using System.Collections.Generic;
     using Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes;
     using NUnit.Framework;
 
@@ -27,6 +28,20 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 
             Assert.AreEqual(1, ex2Detail.AdditionalDetail?.Properties.Count, "Property count (2)");
             Assert.AreEqual(typeof(TestType2).FullName, ex2Detail.AdditionalDetail.Properties[this.Context.SourcePropertyName], "Source (1)");
+        }
+
+        [Test]
+        public void WhenSourceTypeIsGenericSourceDoesNotIncludeTypeArguments()
+        {
+            IExceptionsInstrumentation<GenericTestType<string, List<int>>> exig = this.Context.GetExceptionsInstrumentation<GenericTestType<string, List<int>>>();
+            var ex = new Exception("Another");
+            exig.ReportException(ex);
+
+            Assert.AreEqual(1, this.Context.Exceptions.Count, "Exception count");
+            ExceptionDetail exDetail = this.Context.Exceptions[0];
+            Assert.AreSame(ex, exDetail.Exception, "Exception (3)");
+
+            Assert.AreEqual($"{typeof(SourceTaggingSpecsBase).Namespace}.{nameof(SourceTaggingSpecsBase)}+{nameof(GenericTestType<string, List<int>>)}", exDetail.AdditionalDetail.Properties[this.Context.SourcePropertyName], "Source (2)");
         }
 
         [Test]
