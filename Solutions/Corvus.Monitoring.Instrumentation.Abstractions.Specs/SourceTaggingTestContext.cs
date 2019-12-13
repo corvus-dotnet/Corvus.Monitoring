@@ -18,7 +18,7 @@
             this.serviceProvider = services.BuildServiceProvider();
         }
 
-        public string SourcePropertyName => "Category"; // TBD: parameterise tests so we can vary this
+        public string SourcePropertyName => "Endjin.Source"; // TBD: parameterise tests so we can vary this
 
         public IReadOnlyList<OperationDetail> Operations => this.fakeInstrumentationSinks.Operations;
 

@@ -94,7 +94,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The service collection.</returns>
         public static IServiceCollection AddInstrumentationSourceTagging(
             this IServiceCollection services,
-            string propertyName = "Category")
+            string propertyName = "Endjin.Source")
         {
             return services
                 .AddSingleton(new TaggingPropertySource(propertyName))

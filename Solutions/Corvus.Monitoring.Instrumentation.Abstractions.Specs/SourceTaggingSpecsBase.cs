@@ -44,5 +44,9 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         public class TestType2
         {
         }
+
+        public class GenericTestType<T1, T2>
+        {
+        }
     }
 }
