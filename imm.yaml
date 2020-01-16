@@ -67,15 +67,14 @@
     Id: 6c0402b3-f0e3-4bd7-83fe-04bb6dca7924
     Measures:
         -
-            Score: 3
-            Description: 'Using the most current LTS version'
+            Framework: netcoreapp2.1
 -
     Name: 'Associated Work Items'
     Id: 79b8ff50-7378-4f29-b07c-bcd80746bfd4
     Measures:
         -
-            Score: 1
-            Description: 'Bugs & Features'
+            Score: 2
+            Description: 'Curated Bugs & Features'
 -
     Name: 'Source Code Availability'
     Id: 30e1b40b-b27d-4631-b38d-3172426593ca
@@ -101,8 +100,9 @@
     Id: 87ee2c3e-b17a-4939-b969-2c9c034d05d7
     Measures:
         -
-            Score: 0
-            Description: None
+            Score: 2
+            Description: 'In production use by a customer'
+            # Entered production use in an internal endjin app in December 2019
 -
     Name: Insights
     Id: 71a02488-2dc9-4d25-94fa-8c2346169f8b
