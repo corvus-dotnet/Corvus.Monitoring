@@ -113,7 +113,11 @@
         -
             Score: 1
             Description: 'Perf Counters'
--
+-       -
+            Score: 1
+            Description: 'Operational Insights (Custom Queries defining abnormal behaviour)'
+            # There is nothing in the project for which this would be applicable - queries of this kind would apply at a higher level. By convention, we allocate 1 point here when projects have determined that there is definitely nothing required here.
+
     Name: Packaging
     Id: 547fd9f5-9caf-449f-82d9-4fba9e7ce13a
     Measures:
@@ -126,7 +130,4 @@
 -
     Name: Deployment
     Id: edea4593-d2dd-485b-bc1b-aaaf18f098f9
-    Measures:
-        -
-            Score: 0
-            Description: None
+    OptOut: true
