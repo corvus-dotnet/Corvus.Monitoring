@@ -59,7 +59,7 @@
     Id: da4ed776-0365-4d8a-a297-c4e91a14d646
     Measures:
         -
-            Score: 0
+            Date: 2020-02-26
             Description: None
         -
 -
@@ -67,7 +67,7 @@
     Id: 6c0402b3-f0e3-4bd7-83fe-04bb6dca7924
     Measures:
         -
-            Framework: netcoreapp2.1
+            Framework: netcoreapp3.1
 -
     Name: 'Associated Work Items'
     Id: 79b8ff50-7378-4f29-b07c-bcd80746bfd4
@@ -113,6 +113,10 @@
         -
             Score: 1
             Description: 'Perf Counters'
+        -
+            Score: 1
+            Description: 'Operational Insights (Custom Queries defining abnormal behaviour)'
+            # There is nothing in the project for which this would be applicable - queries of this kind would apply at a higher level. By convention, we allocate 1 point here when projects have determined that there is definitely nothing required here.
 -
     Name: Packaging
     Id: 547fd9f5-9caf-449f-82d9-4fba9e7ce13a
@@ -126,7 +130,4 @@
 -
     Name: Deployment
     Id: edea4593-d2dd-485b-bc1b-aaaf18f098f9
-    Measures:
-        -
-            Score: 0
-            Description: None
+    OptOut: true
