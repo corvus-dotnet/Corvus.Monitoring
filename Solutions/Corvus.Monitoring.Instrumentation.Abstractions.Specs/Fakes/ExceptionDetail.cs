@@ -1,4 +1,8 @@
-﻿namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
+﻿// <copyright file="ExceptionDetail.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
 {
     using System;
 

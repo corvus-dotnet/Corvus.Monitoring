@@ -1,4 +1,8 @@
-﻿namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
+﻿// <copyright file="OperationDetail.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
 {
     using System;
     using System.Collections.Generic;
@@ -43,7 +47,7 @@
 
         /// <summary>
         /// Gets a value indicating whether the code providing instrumentation to our fake has
-        /// called <c>Dispose</c> on the object returned by 
+        /// called <c>Dispose</c> on the object returned by
         /// <see cref="IOperationsInstrumentation.StartOperation(string, AdditionalInstrumentationDetail)"/>.
         /// </summary>
         public bool IsDisposed { get; private set; }

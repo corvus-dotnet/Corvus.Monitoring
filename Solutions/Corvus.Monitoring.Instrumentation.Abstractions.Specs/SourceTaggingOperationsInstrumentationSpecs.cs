@@ -1,3 +1,7 @@
+// <copyright file="SourceTaggingOperationsInstrumentationSpecs.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
 namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes;
@@ -47,7 +51,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
-                Metrics = { { "m1", 42.0 } }
+                Metrics = { { "m1", 42.0 } },
             };
             OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
@@ -62,7 +66,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
-                Metrics = { { "m1", 42.0 } }
+                Metrics = { { "m1", 42.0 } },
             };
             OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
@@ -75,7 +79,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
-                Metrics = { { "m1", 42.0 } }
+                Metrics = { { "m1", 42.0 } },
             };
             this.ReportOperation1(suppliedDetail);
 
@@ -91,7 +95,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         {
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
-                Properties = { { ExistingDetailKey, ExistingDetailValue } }
+                Properties = { { ExistingDetailKey, ExistingDetailValue } },
             };
             OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
@@ -105,7 +109,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         {
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
-                Properties = { { ExistingDetailKey, ExistingDetailValue } }
+                Properties = { { ExistingDetailKey, ExistingDetailValue } },
             };
             OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
@@ -145,12 +149,12 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             var furtherDetail1 = new AdditionalInstrumentationDetail
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
-                Metrics = { { "m1", 42.0 } }
+                Metrics = { { "m1", 42.0 } },
             };
             var furtherDetail2 = new AdditionalInstrumentationDetail
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
-                Metrics = { { "m2", 99.0 } }
+                Metrics = { { "m2", 99.0 } },
             };
 
             using (IOperationInstance op = opi1.StartOperation(OpName1))

@@ -5,16 +5,6 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.Instrumentation.Abstractions", "Corvus.Monitoring.Instrumentation.Abstractions\Corvus.Monitoring.Instrumentation.Abstractions.csproj", "{DD9E2767-7FE1-4E92-B39A-B421DC405936}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{94412CE3-71E1-4A5A-BBF7-F9D65B53244B}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		Common.NetStandard_2_0.proj = Common.NetStandard_2_0.proj
-		Directory.build.props = Directory.build.props
-		Directory.build.targets = Directory.build.targets
-		stylecop.json = stylecop.json
-		StyleCop.ruleset = StyleCop.ruleset
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.ApplicationInsights", "Corvus.Monitoring.ApplicationInsights\Corvus.Monitoring.ApplicationInsights.csproj", "{4525EC03-8BAD-44E3-9A88-02A6602EC062}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.ApplicationInsights.Specs", "Corvus.Monitoring.ApplicationInsights.Specs\Corvus.Monitoring.ApplicationInsights.Specs.csproj", "{35CB3555-E291-4C83-B97C-E9153A2E3F5F}"

@@ -1,4 +1,8 @@
-﻿namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
+﻿// <copyright file="FallbackInstrumentationSpecs.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using System;
     using Microsoft.Extensions.DependencyInjection;
@@ -126,10 +130,16 @@
         {
             IServiceProvider sp = this.services.BuildServiceProvider();
 
+            // These two calls are to the method defined below. Roslynator gets confused and thinks they are local calls.
+#pragma warning disable SA1101 // Prefix local calls with this
             Get(ref this.exceptionsInstrumentation);
             Get(ref this.operationsInstrumentation);
+#pragma warning restore SA1101 // Prefix local calls with this
 
-            void Get<T>(ref T target) { target = sp.GetRequiredService<T>(); }
+            void Get<T>(ref T target)
+            {
+                target = sp.GetRequiredService<T>();
+            }
         }
 
         // This class exists purely to be the type argument for the various instrumentation

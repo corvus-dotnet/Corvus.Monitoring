@@ -1,3 +1,7 @@
+// <copyright file="SourceTaggingExceptionsInstrumentationSpecs.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
 namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using System;
@@ -60,7 +64,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
-                Metrics = { { "m1", 42.0 } }
+                Metrics = { { "m1", 42.0 } },
             };
             ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
@@ -75,7 +79,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
-                Metrics = { { "m1", 42.0 } }
+                Metrics = { { "m1", 42.0 } },
             };
             ExceptionDetail opDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
@@ -88,7 +92,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
-                Metrics = { { "m1", 42.0 } }
+                Metrics = { { "m1", 42.0 } },
             };
             this.ThrowReportAndCatchException1(suppliedDetail);
 
@@ -104,7 +108,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         {
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
-                Properties = { { ExistingDetailKey, ExistingDetailValue } }
+                Properties = { { ExistingDetailKey, ExistingDetailValue } },
             };
             ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
@@ -118,7 +122,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         {
             var suppliedDetail = new AdditionalInstrumentationDetail
             {
-                Properties = { { ExistingDetailKey, ExistingDetailValue } }
+                Properties = { { ExistingDetailKey, ExistingDetailValue } },
             };
             ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
