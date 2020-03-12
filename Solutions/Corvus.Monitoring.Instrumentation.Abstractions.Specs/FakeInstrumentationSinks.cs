@@ -1,4 +1,8 @@
-﻿namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
+﻿// <copyright file="FakeInstrumentationSinks.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using System;
     using System.Collections.Generic;
@@ -75,12 +79,18 @@
 
         private class OperationsTarget : OperationsTargetBase<object>
         {
-            public OperationsTarget(FakeInstrumentationSinks parent) : base(parent.operations) { }
+            public OperationsTarget(FakeInstrumentationSinks parent)
+                : base(parent.operations)
+            {
+            }
         }
 
         private class GenericOperationsTarget<T> : OperationsTargetBase<T>
         {
-            public GenericOperationsTarget(FakeInstrumentationSinks parent) : base(parent.genericOperations) { }
+            public GenericOperationsTarget(FakeInstrumentationSinks parent)
+                : base(parent.genericOperations)
+            {
+            }
         }
 
         private class ExceptionsTargetBase<T> : IExceptionsInstrumentation<T>
@@ -100,12 +110,18 @@
 
         private class ExceptionsTarget : ExceptionsTargetBase<object>
         {
-            public ExceptionsTarget(FakeInstrumentationSinks parent) : base(parent.exceptions) { }
+            public ExceptionsTarget(FakeInstrumentationSinks parent)
+                : base(parent.exceptions)
+            {
+            }
         }
 
         private class GenericExceptionsTarget<T> : ExceptionsTargetBase<T>
         {
-            public GenericExceptionsTarget(FakeInstrumentationSinks parent) : base(parent.genericExceptions) { }
-        }
+            public GenericExceptionsTarget(FakeInstrumentationSinks parent)
+                : base(parent.genericExceptions)
+            {
+            }
     }
+}
 }

@@ -79,7 +79,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         public IExceptionsInstrumentation ExceptionsInstrumentation { get; }
 
         /// <summary>
-        /// Gets the Activity created by <see cref="StartActivity"/>.
+        /// Gets the Activity created with this object.
         /// </summary>
         public Activity Activity { get; private set; }
 

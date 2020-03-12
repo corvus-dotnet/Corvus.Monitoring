@@ -1,4 +1,8 @@
-﻿namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
+﻿// <copyright file="SourceTaggingTestContext.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using System;
     using System.Collections.Generic;

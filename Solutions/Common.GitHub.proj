@@ -1,6 +1,0 @@
-<Project>
-  <PropertyGroup>
-    <GitHubOrg>corvus-dotnet</GitHubOrg>
-    <GitHubProject>Corvus.Monitoring</GitHubProject>
-  </PropertyGroup>
-</Project>
