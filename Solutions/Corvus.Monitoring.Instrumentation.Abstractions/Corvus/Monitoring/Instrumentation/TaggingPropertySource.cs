@@ -36,7 +36,7 @@ namespace Corvus.Monitoring.Instrumentation
         /// Other detail passed by the client application, or null if none was supplied.
         /// </param>
         /// <returns>The fully populated detail.</returns>
-        internal AdditionalInstrumentationDetail GetDetail<TSource>(AdditionalInstrumentationDetail additionalDetail)
+        internal AdditionalInstrumentationDetail GetDetail<TSource>(AdditionalInstrumentationDetail? additionalDetail)
         {
             return new AdditionalInstrumentationDetail(
                 additionalDetail?.PropertiesIfPresent == null ? null : new Dictionary<string, string>(additionalDetail.PropertiesIfPresent),

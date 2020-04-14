@@ -33,7 +33,7 @@ namespace Corvus.Monitoring.Instrumentation
         }
 
         /// <inheritdoc/>
-        public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail additionalDetail = null)
+        public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail? additionalDetail = null)
         {
             return this.underlying.StartOperation(name, this.propertySource.GetDetail<T>(additionalDetail));
         }

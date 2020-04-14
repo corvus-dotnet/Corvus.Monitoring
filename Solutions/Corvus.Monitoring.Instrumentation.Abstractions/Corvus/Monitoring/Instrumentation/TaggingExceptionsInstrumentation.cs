@@ -35,7 +35,7 @@ namespace Corvus.Monitoring.Instrumentation
         }
 
         /// <inheritdoc/>
-        public void ReportException(Exception x, AdditionalInstrumentationDetail additionalDetail = null)
+        public void ReportException(Exception x, AdditionalInstrumentationDetail? additionalDetail = null)
         {
             this.underlying.ReportException(x, this.propertySource.GetDetail<T>(additionalDetail));
         }

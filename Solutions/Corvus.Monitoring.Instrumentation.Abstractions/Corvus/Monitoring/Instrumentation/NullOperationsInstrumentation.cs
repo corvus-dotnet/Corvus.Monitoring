@@ -18,7 +18,7 @@ namespace Corvus.Monitoring.Instrumentation
     internal class NullOperationsInstrumentation : IOperationsInstrumentation
     {
         /// <inheritdoc/>
-        public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail additionalDetail = null)
+        public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail? additionalDetail = null)
         {
             return Operation.Instance;
         }

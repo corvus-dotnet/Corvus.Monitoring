@@ -29,7 +29,7 @@ namespace Corvus.Monitoring.ApplicationInsights
         }
 
         /// <inheritdoc />
-        public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail additionalDetail)
+        public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail? additionalDetail)
         {
             IOperationHolder<RequestTelemetry> operationHolder = this.telemetryClient.StartOperation<RequestTelemetry>(name);
             if (additionalDetail?.Properties != null)
