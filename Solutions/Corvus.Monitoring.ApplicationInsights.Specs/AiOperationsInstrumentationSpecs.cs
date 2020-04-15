@@ -19,7 +19,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         public void WhenOperationFinishesTelemetryIsSent()
         {
             const string operationName = "MyOp";
-            using (this.Ai!.OperationsInstrumentation.StartOperation(operationName))
+            using (this.Ai.OperationsInstrumentation.StartOperation(operationName))
             {
                 // We need to dispose the operation, because Application Insights doesn't
                 // send any telemetry for it until it's done.
@@ -27,14 +27,14 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
 
             RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
             Assert.AreEqual(operationName, telemetry.Name);
-            Assert.AreEqual(this.Ai!.Activity?.RootId, telemetry.Context.Operation.Id);
-            Assert.AreEqual(this.Ai!.Activity?.Id, telemetry.Context.Operation.ParentId);
+            Assert.AreEqual(this.Ai.Activity?.RootId, telemetry.Context.Operation.Id);
+            Assert.AreEqual(this.Ai.Activity?.Id, telemetry.Context.Operation.ParentId);
         }
 
         [Test]
         public void WhenOperationWithUpFrontPropertiesFinishesTelemetryIncludesProperties()
         {
-            using (IOperationInstance operation = this.Ai!.OperationsInstrumentation.StartOperation(
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation(
                 "op", AdditionalDetailTests.DetailWithProperties))
             {
             }
@@ -46,7 +46,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [Test]
         public void WhenOperationWithPostStartPropertiesFinishesTelemetryIncludesProperties()
         {
-            using (IOperationInstance operation = this.Ai!.OperationsInstrumentation.StartOperation("op"))
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
             {
                 operation.AddOperationDetail(AdditionalDetailTests.DetailWithProperties);
             }
@@ -58,7 +58,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [Test]
         public void WhenOperationWithUpFrontMetricsFinishesTelemetryIncludesMetrics()
         {
-            using (IOperationInstance operation = this.Ai!.OperationsInstrumentation.StartOperation(
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation(
                 "op", AdditionalDetailTests.DetailWithMetrics))
             {
             }
@@ -70,7 +70,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [Test]
         public void WhenOperationWithPostStartMetricsFinishesTelemetryIncludesMetrics()
         {
-            using (IOperationInstance operation = this.Ai!.OperationsInstrumentation.StartOperation("op"))
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
             {
                 operation.AddOperationDetail(AdditionalDetailTests.DetailWithMetrics);
             }
@@ -82,7 +82,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [Test]
         public void WhenOperationWithUpFrontPropertiesAndMetricsFinishesTelemetryIncludesPropertiesAndMetrics()
         {
-            using (IOperationInstance operation = this.Ai!.OperationsInstrumentation.StartOperation(
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation(
                 "op", AdditionalDetailTests.DetailWithPropertiesAndMetrics))
             {
             }
@@ -94,7 +94,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [Test]
         public void WhenOperationWithPropertiesAndMetricsFinishesTelemetryIncludesPropertiesAndMetrics()
         {
-            using (IOperationInstance operation = this.Ai!.OperationsInstrumentation.StartOperation("op"))
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
             {
                 operation.AddOperationDetail(AdditionalDetailTests.DetailWithPropertiesAndMetrics);
             }
@@ -106,7 +106,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [Test]
         public void WhenOperationWithPostStartPropertiesAndMetricsAddedSeparatelyFinishesTelemetryIncludesPropertiesAndMetrics()
         {
-            using (IOperationInstance operation = this.Ai!.OperationsInstrumentation.StartOperation("op"))
+            using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
             {
                 operation.AddOperationDetail(AdditionalDetailTests.DetailWithProperties);
                 operation.AddOperationDetail(AdditionalDetailTests.DetailWithMetrics);
@@ -122,10 +122,10 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             string testActivityId = Activity.Current.Id;
             string parentOpActivityId;
             string childOpActivityId;
-            using (this.Ai!.OperationsInstrumentation.StartOperation("ParentOp"))
+            using (this.Ai.OperationsInstrumentation.StartOperation("ParentOp"))
             {
                 parentOpActivityId = Activity.Current.Id;
-                using (this.Ai!.OperationsInstrumentation.StartOperation("ChildOp"))
+                using (this.Ai.OperationsInstrumentation.StartOperation("ChildOp"))
                 {
                     childOpActivityId = Activity.Current.Id;
                 }
@@ -141,8 +141,8 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             // as "Operation Id" in the Application Insights event details, and this
             // tag is how the portal decides which items belong to the same timeline
             // in the end-to-end transaction view.
-            Assert.AreEqual(this.Ai!.Activity?.RootId, parent.Context.Operation.Id);
-            Assert.AreEqual(this.Ai!.Activity?.RootId, child.Context.Operation.Id);
+            Assert.AreEqual(this.Ai.Activity?.RootId, parent.Context.Operation.Id);
+            Assert.AreEqual(this.Ai.Activity?.RootId, child.Context.Operation.Id);
 
             // The operation ids reported should be consistent with the ones shown
             // by System.Diagnostics.Activity.Current, because the Application Insights
@@ -159,15 +159,15 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
 
         private RequestTelemetry GetSingleRequestTelemetry()
         {
-            Assert.AreEqual(1, this.Ai!.Items.Count, "Number of telemetry items");
-            return (RequestTelemetry)this.Ai!.Items[0];
+            Assert.AreEqual(1, this.Ai.Items.Count, "Number of telemetry items");
+            return (RequestTelemetry)this.Ai.Items[0];
         }
 
         private (RequestTelemetry child, RequestTelemetry parent) GetChildParentRequestTelemetry()
         {
-            Assert.AreEqual(2, this.Ai!.Items.Count, "Number of telemetry items");
-            var child = (RequestTelemetry)this.Ai!.Items[0];
-            var parent = (RequestTelemetry)this.Ai!.Items[1];
+            Assert.AreEqual(2, this.Ai.Items.Count, "Number of telemetry items");
+            var child = (RequestTelemetry)this.Ai.Items[0];
+            var parent = (RequestTelemetry)this.Ai.Items[1];
 
             return (child, parent);
         }

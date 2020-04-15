@@ -4,6 +4,7 @@
 
 namespace Corvus.Monitoring.ApplicationInsights.Specs
 {
+    using System;
     using NUnit.Framework;
 
     /// <summary>
@@ -12,6 +13,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
     public abstract class AiSpecsBase
     {
         private readonly bool telemetryClientViaDi;
+        private AiTestContext? ai;
 
         /// <summary>
         /// Creates a <see cref="AiSpecsBase"/>.
@@ -29,7 +31,11 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// <summary>
         /// Gets the <see cref="AiTestContext"/>.
         /// </summary>
-        private protected AiTestContext? Ai { get; private set; }
+        private protected AiTestContext Ai
+        {
+            get => this.ai ?? throw new InvalidOperationException($"The {nameof(AiTestContext)} has not been set on the {nameof(this.Ai)} property.");
+            private set => this.ai = value ?? throw new ArgumentNullException();
+        }
 
         /// <summary>
         /// Creates the <see cref="AiTestContext"/> and starts an Activity.
@@ -52,7 +58,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [TearDown]
         public void Teardown()
         {
-            this.Ai!.Dispose();
+            this.Ai.Dispose();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             // initialization mechanims works. We leave the full exercising to all the other tests.
             ArgumentException ax;
 
-            using (this.Ai!.OperationsInstrumentation.StartOperation("ParentOp"))
+            using (this.Ai.OperationsInstrumentation.StartOperation("ParentOp"))
             {
                 try
                 {
@@ -39,12 +39,12 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
                 catch (ArgumentException x)
                 {
                     ax = x;
-                    this.Ai!.ExceptionsInstrumentation.ReportException(x);
+                    this.Ai.ExceptionsInstrumentation.ReportException(x);
                 }
             }
 
-            (ExceptionTelemetry exceptionTelemetry, RequestTelemetry requestTelemetry) = this.Ai!.GetParentOperationAndExceptionTelemetry<ExceptionTelemetry, RequestTelemetry>();
-            Assert.AreEqual(this.Ai!.Activity?.RootId, exceptionTelemetry.Context.Operation.Id);
+            (ExceptionTelemetry exceptionTelemetry, RequestTelemetry requestTelemetry) = this.Ai.GetParentOperationAndExceptionTelemetry<ExceptionTelemetry, RequestTelemetry>();
+            Assert.AreEqual(this.Ai.Activity?.RootId, exceptionTelemetry.Context.Operation.Id);
             Assert.AreEqual(requestTelemetry.Id, exceptionTelemetry.Context.Operation.ParentId);
         }
     }
