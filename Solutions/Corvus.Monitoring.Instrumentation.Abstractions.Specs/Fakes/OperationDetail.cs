@@ -22,7 +22,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
 
         public OperationDetail(
             string name,
-            AdditionalInstrumentationDetail additionalDetail)
+            AdditionalInstrumentationDetail? additionalDetail)
         {
             this.Name = name;
             this.AdditionalDetail = additionalDetail;
@@ -37,7 +37,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
         /// Gets the additional instrumentation detail (if any) passed to the call to
         /// <see cref="IOperationsInstrumentation.StartOperation(string, AdditionalInstrumentationDetail)"/>.
         /// </summary>
-        public AdditionalInstrumentationDetail AdditionalDetail { get; }
+        public AdditionalInstrumentationDetail? AdditionalDetail { get; }
 
         /// <summary>
         /// Gets a list of any further instrumentation detail provided by calls to

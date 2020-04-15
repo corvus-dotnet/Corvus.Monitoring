@@ -69,7 +69,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
                 this.operationsList = operationsList;
             }
 
-            public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail additionalDetail = null)
+            public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail? additionalDetail = null)
             {
                 var op = new OperationDetail(name, additionalDetail);
                 this.operationsList.Add(op);
@@ -102,7 +102,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
                 this.exceptionsList = exceptionsList;
             }
 
-            public void ReportException(Exception x, AdditionalInstrumentationDetail additionalDetail = null)
+            public void ReportException(Exception x, AdditionalInstrumentationDetail? additionalDetail = null)
             {
                 this.exceptionsList.Add(new ExceptionDetail(x, additionalDetail));
             }

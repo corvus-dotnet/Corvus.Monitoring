@@ -4,6 +4,7 @@
 
 namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
+    using System;
     using NUnit.Framework;
 
     /// <summary>
@@ -11,10 +12,16 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
     /// </summary>
     public abstract class SourceTaggingSpecsBase
     {
+        private SourceTaggingTestContext? context;
+
         /// <summary>
-        /// Gets the <see cref="SourceTaggingTestContext"/>.
+        /// Gets or sets the <see cref="SourceTaggingTestContext"/>.
         /// </summary>
-        private protected SourceTaggingTestContext Context { get; private set; }
+        private protected SourceTaggingTestContext Context
+        {
+            get => this.context ?? throw new InvalidOperationException($"The property {nameof(this.Context)} has not been set.");
+            set => this.context = value ?? throw new ArgumentNullException();
+        }
 
         /// <summary>
         /// Creates the <see cref="SourceTaggingTestContext"/>.

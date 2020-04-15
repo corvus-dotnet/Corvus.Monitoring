@@ -18,7 +18,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
     {
         public ExceptionDetail(
             Exception x,
-            AdditionalInstrumentationDetail additionalDetail)
+            AdditionalInstrumentationDetail? additionalDetail)
         {
             this.Exception = x;
             this.AdditionalDetail = additionalDetail;
@@ -33,6 +33,6 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
         /// Gets the additional instrumentation detail (if any) passed to the call to
         /// <see cref="IExceptionsInstrumentation.ReportException(Exception, AdditionalInstrumentationDetail)"/>.
         /// </summary>
-        public AdditionalInstrumentationDetail AdditionalDetail { get; }
+        public AdditionalInstrumentationDetail? AdditionalDetail { get; }
     }
 }

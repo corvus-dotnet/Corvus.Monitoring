@@ -38,22 +38,34 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
     /// </remarks>
     public class FallbackInstrumentationSpecs
     {
-        private ServiceCollection services;
-        private IExceptionsInstrumentation<TestSource> exceptionsInstrumentation;
-        private IOperationsInstrumentation<TestSource> operationsInstrumentation;
-        private FakeInstrumentationSinks fakeInstrumentationSinks;
+        private ServiceCollection? services;
+        private FakeInstrumentationSinks? fakeInstrumentationSinks;
+        private IExceptionsInstrumentation<TestSource>? exceptionsInstrumentation;
+        private IOperationsInstrumentation<TestSource>? operationsInstrumentation;
+
+        private ServiceCollection Services
+        {
+            get => this.services ?? throw new InvalidOperationException($"The property {nameof(this.Services)} has not been set.");
+            set => this.services = value ?? throw new ArgumentNullException();
+        }
+
+        private FakeInstrumentationSinks FakeInstrumentationSinks
+        {
+            get => this.fakeInstrumentationSinks ?? throw new InvalidOperationException($"The property {nameof(this.FakeInstrumentationSinks)} has not been set.");
+            set => this.fakeInstrumentationSinks = value ?? throw new ArgumentNullException();
+        }
 
         [SetUp]
         public void Setup()
         {
-            this.services = new ServiceCollection();
-            this.fakeInstrumentationSinks = new FakeInstrumentationSinks();
+            this.Services = new ServiceCollection();
+            this.FakeInstrumentationSinks = new FakeInstrumentationSinks();
         }
 
         [Test]
         public void WhenAddInstrumentationCalledAloneGenericImplementationsCanBeResolvedAndUsedWithoutError()
         {
-            this.services.AddInstrumentation();
+            this.Services.AddInstrumentation();
             this.ResolveAndUseAll();
 
             // In this scenario, we expect everything to go into the bit bucket, which is why there
@@ -63,8 +75,8 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         [Test]
         public void WhenAddInstrumentationCalledAfterNonGenericImplementationsAddedPresuppliedImplementationsAreUsed()
         {
-            this.fakeInstrumentationSinks.AddNonGenericImplementationsToServices(this.services);
-            this.services.AddInstrumentation();
+            this.FakeInstrumentationSinks.AddNonGenericImplementationsToServices(this.Services);
+            this.Services.AddInstrumentation();
 
             this.ResolveAndCheckInstrumentationReachesSuppliedNonGenericImplementation();
         }
@@ -72,8 +84,8 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         [Test]
         public void WhenAddInstrumentationCalledBeforeNonGenericImplementationsAddedPresuppliedImplementationsAreUsed()
         {
-            this.services.AddInstrumentation();
-            this.fakeInstrumentationSinks.AddNonGenericImplementationsToServices(this.services);
+            this.Services.AddInstrumentation();
+            this.FakeInstrumentationSinks.AddNonGenericImplementationsToServices(this.Services);
 
             this.ResolveAndCheckInstrumentationReachesSuppliedNonGenericImplementation();
         }
@@ -81,8 +93,8 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         [Test]
         public void WhenAddInstrumentationCalledAfterGenericImplementationsAddedPresuppliedImplementationsAreUsed()
         {
-            this.fakeInstrumentationSinks.AddGenericImplementationsToServices(this.services);
-            this.services.AddInstrumentation();
+            this.FakeInstrumentationSinks.AddGenericImplementationsToServices(this.Services);
+            this.Services.AddInstrumentation();
 
             this.ResolveAndCheckInstrumentationReachesSuppliedGenericImplementation();
         }
@@ -90,8 +102,8 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         [Test]
         public void WhenAddInstrumentationCalledBeforeGenericImplementationsAddedPresuppliedImplementationsAreUsed()
         {
-            this.services.AddInstrumentation();
-            this.fakeInstrumentationSinks.AddGenericImplementationsToServices(this.services);
+            this.Services.AddInstrumentation();
+            this.FakeInstrumentationSinks.AddGenericImplementationsToServices(this.Services);
 
             this.ResolveAndCheckInstrumentationReachesSuppliedGenericImplementation();
         }
@@ -100,35 +112,35 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         {
             this.ResolveAndUseAll();
 
-            Assert.AreEqual(1, this.fakeInstrumentationSinks.Operations.Count, "Operations.Count");
-            Assert.AreEqual(1, this.fakeInstrumentationSinks.Exceptions.Count, "Exceptions.Count");
+            Assert.AreEqual(1, this.FakeInstrumentationSinks.Operations.Count, "Operations.Count");
+            Assert.AreEqual(1, this.FakeInstrumentationSinks.Exceptions.Count, "Exceptions.Count");
         }
 
         private void ResolveAndCheckInstrumentationReachesSuppliedGenericImplementation()
         {
             this.ResolveAndUseAll();
 
-            Assert.AreEqual(1, this.fakeInstrumentationSinks.GenericOperations.Count, "GenericOperations.Count");
-            Assert.AreEqual(1, this.fakeInstrumentationSinks.GenericExceptions.Count, "GenericExceptions.Count");
+            Assert.AreEqual(1, this.FakeInstrumentationSinks.GenericOperations.Count, "GenericOperations.Count");
+            Assert.AreEqual(1, this.FakeInstrumentationSinks.GenericExceptions.Count, "GenericExceptions.Count");
 
-            Assert.AreEqual(0, this.fakeInstrumentationSinks.Operations.Count, "Operations.Count");
-            Assert.AreEqual(0, this.fakeInstrumentationSinks.Exceptions.Count, "Exceptions.Count");
+            Assert.AreEqual(0, this.FakeInstrumentationSinks.Operations.Count, "Operations.Count");
+            Assert.AreEqual(0, this.FakeInstrumentationSinks.Exceptions.Count, "Exceptions.Count");
         }
 
         private void ResolveAndUseAll()
         {
             this.ResolveAll();
 
-            using (this.operationsInstrumentation.StartOperation("Foo"))
+            using (this.operationsInstrumentation!.StartOperation("Foo"))
             {
             }
 
-            this.exceptionsInstrumentation.ReportException(new Exception("Uh oh"));
+            this.exceptionsInstrumentation!.ReportException(new Exception("Uh oh"));
         }
 
         private void ResolveAll()
         {
-            IServiceProvider sp = this.services.BuildServiceProvider();
+            IServiceProvider sp = this.Services.BuildServiceProvider();
 
             // These two calls are to the method defined below. Roslynator gets confused and thinks they are local calls.
 #pragma warning disable SA1101 // Prefix local calls with this
