@@ -28,11 +28,11 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             OperationDetail op2Detail = this.Context.Operations[1];
             Assert.AreEqual(OpName2, op2Detail.Name, "Name (2)");
 
-            Assert.AreEqual(1, op1Detail.AdditionalDetail?.Properties.Count, "Property count (1)");
-            Assert.AreEqual(typeof(TestType1).FullName, op1Detail.AdditionalDetail?.Properties[this.Context.SourcePropertyName], "Source (1)");
+            Assert.AreEqual(1, op1Detail.AdditionalDetail!.Properties.Count, "Property count (1)");
+            Assert.AreEqual(typeof(TestType1).FullName, op1Detail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source (1)");
 
-            Assert.AreEqual(1, op2Detail.AdditionalDetail?.Properties.Count, "Property count (2)");
-            Assert.AreEqual(typeof(TestType2).FullName, op2Detail.AdditionalDetail?.Properties[this.Context.SourcePropertyName], "Source (1)");
+            Assert.AreEqual(1, op2Detail.AdditionalDetail!.Properties.Count, "Property count (2)");
+            Assert.AreEqual(typeof(TestType2).FullName, op2Detail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source (1)");
         }
 
         [Test]
@@ -41,8 +41,8 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             var suppliedDetail = new AdditionalInstrumentationDetail();
             OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
-            Assert.AreEqual(1, opDetail.AdditionalDetail?.Properties.Count, "Property count");
-            Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail?.Properties[this.Context.SourcePropertyName], "Source");
+            Assert.AreEqual(1, opDetail.AdditionalDetail!.Properties.Count, "Property count");
+            Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source");
         }
 
         [Test]
@@ -55,9 +55,9 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             };
             OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
-            Assert.AreEqual(2, opDetail.AdditionalDetail?.Properties.Count, "Property count");
-            Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail?.Properties[this.Context.SourcePropertyName], "Source");
-            Assert.AreEqual(ExistingDetailValue, opDetail.AdditionalDetail?.Properties[ExistingDetailKey], "ExistingDetailKey");
+            Assert.AreEqual(2, opDetail.AdditionalDetail!.Properties.Count, "Property count");
+            Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source");
+            Assert.AreEqual(ExistingDetailValue, opDetail.AdditionalDetail!.Properties[ExistingDetailKey], "ExistingDetailKey");
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             };
             OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
-            Assert.AreSame(suppliedDetail.Metrics, opDetail.AdditionalDetail?.Metrics);
+            Assert.AreSame(suppliedDetail.Metrics, opDetail.AdditionalDetail!.Metrics);
         }
 
         [Test]
@@ -99,9 +99,9 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             };
             OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
-            Assert.AreEqual(2, opDetail.AdditionalDetail?.Properties.Count, "Property count");
-            Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail?.Properties[this.Context.SourcePropertyName], "Source");
-            Assert.AreEqual(ExistingDetailValue, opDetail.AdditionalDetail?.Properties[ExistingDetailKey], "ExistingDetailKey");
+            Assert.AreEqual(2, opDetail.AdditionalDetail!.Properties.Count, "Property count");
+            Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source");
+            Assert.AreEqual(ExistingDetailValue, opDetail.AdditionalDetail!.Properties[ExistingDetailKey], "ExistingDetailKey");
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             };
             OperationDetail opDetail = this.ReportOperation1(suppliedDetail);
 
-            Assert.IsNull(opDetail.AdditionalDetail?.MetricsIfPresent);
+            Assert.IsNull(opDetail.AdditionalDetail!.MetricsIfPresent);
         }
 
         [Test]
