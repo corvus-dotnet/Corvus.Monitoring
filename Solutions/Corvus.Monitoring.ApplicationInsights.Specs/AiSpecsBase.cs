@@ -29,7 +29,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// <summary>
         /// Gets the <see cref="AiTestContext"/>.
         /// </summary>
-        private protected AiTestContext Ai { get; private set; }
+        private protected AiTestContext? Ai { get; private set; }
 
         /// <summary>
         /// Creates the <see cref="AiTestContext"/> and starts an Activity.
@@ -52,7 +52,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [TearDown]
         public void Teardown()
         {
-            this.Ai.Dispose();
+            this.Ai!.Dispose();
         }
     }
 }
