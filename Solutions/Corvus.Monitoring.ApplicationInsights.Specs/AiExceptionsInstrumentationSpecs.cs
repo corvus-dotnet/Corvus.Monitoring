@@ -22,8 +22,8 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
 
             ExceptionTelemetry telemetry = this.GetSingleExceptionTelemetry();
             Assert.AreSame(ax, telemetry.Exception);
-            Assert.AreEqual(this.Ai.Activity?.RootId, telemetry.Context.Operation.Id);
-            Assert.AreEqual(this.Ai.Activity?.Id, telemetry.Context.Operation.ParentId);
+            Assert.AreEqual(this.Ai.Activity!.RootId, telemetry.Context.Operation.Id);
+            Assert.AreEqual(this.Ai.Activity!.Id, telemetry.Context.Operation.ParentId);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             }
 
             (ExceptionTelemetry exceptionTelemetry, RequestTelemetry requestTelemetry) = this.GetExceptionAndParentRequestTelemetry();
-            Assert.AreEqual(this.Ai.Activity?.RootId, exceptionTelemetry.Context.Operation.Id);
+            Assert.AreEqual(this.Ai.Activity!.RootId, exceptionTelemetry.Context.Operation.Id);
             Assert.AreEqual(requestTelemetry.Id, exceptionTelemetry.Context.Operation.ParentId);
         }
 
