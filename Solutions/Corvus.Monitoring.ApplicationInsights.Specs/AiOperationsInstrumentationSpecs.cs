@@ -27,8 +27,8 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
 
             RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
             Assert.AreEqual(operationName, telemetry.Name);
-            Assert.AreEqual(this.Ai.Activity.RootId, telemetry.Context.Operation.Id);
-            Assert.AreEqual(this.Ai.Activity.Id, telemetry.Context.Operation.ParentId);
+            Assert.AreEqual(this.Ai.Activity!.RootId, telemetry.Context.Operation.Id);
+            Assert.AreEqual(this.Ai.Activity!.Id, telemetry.Context.Operation.ParentId);
         }
 
         [Test]
@@ -141,8 +141,8 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             // as "Operation Id" in the Application Insights event details, and this
             // tag is how the portal decides which items belong to the same timeline
             // in the end-to-end transaction view.
-            Assert.AreEqual(this.Ai.Activity.RootId, parent.Context.Operation.Id);
-            Assert.AreEqual(this.Ai.Activity.RootId, child.Context.Operation.Id);
+            Assert.AreEqual(this.Ai.Activity!.RootId, parent.Context.Operation.Id);
+            Assert.AreEqual(this.Ai.Activity!.RootId, child.Context.Operation.Id);
 
             // The operation ids reported should be consistent with the ones shown
             // by System.Diagnostics.Activity.Current, because the Application Insights

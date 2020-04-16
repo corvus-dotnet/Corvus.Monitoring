@@ -25,6 +25,6 @@ namespace Corvus.Monitoring.Instrumentation
         /// An <see cref="IOperationInstance"/> that must be disposed once this operation
         /// completes.
         /// </returns>
-        IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail additionalDetail = null);
+        IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail? additionalDetail = null);
     }
 }

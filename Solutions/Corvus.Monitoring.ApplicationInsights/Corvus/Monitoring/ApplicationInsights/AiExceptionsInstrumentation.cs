@@ -27,7 +27,7 @@ namespace Corvus.Monitoring.ApplicationInsights
         }
 
         /// <inheritdoc />
-        public void ReportException(Exception x, AdditionalInstrumentationDetail additionalDetail)
+        public void ReportException(Exception x, AdditionalInstrumentationDetail? additionalDetail)
         {
             this.telemetryClient.TrackException(x, additionalDetail?.PropertiesIfPresent, additionalDetail?.MetricsIfPresent);
         }

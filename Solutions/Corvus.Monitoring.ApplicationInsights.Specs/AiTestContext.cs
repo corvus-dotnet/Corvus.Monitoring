@@ -81,7 +81,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// <summary>
         /// Gets the Activity created with this object.
         /// </summary>
-        public Activity Activity { get; private set; }
+        public Activity? Activity { get; private set; }
 
         /// <summary>
         /// Verifies that there is just one item of telemetry, and returns it.
@@ -138,7 +138,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
 
             public bool? DeveloperMode { get; set; }
 
-            public string EndpointAddress { get; set; }
+            public string? EndpointAddress { get; set; }
 
             public void Dispose()
             {

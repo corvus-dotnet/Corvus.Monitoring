@@ -20,7 +20,7 @@ namespace Corvus.Monitoring.Instrumentation
     internal class NullExceptionsInstrumentation : IExceptionsInstrumentation
     {
         /// <inheritdoc/>
-        public void ReportException(Exception x, AdditionalInstrumentationDetail additionalDetail = null)
+        public void ReportException(Exception x, AdditionalInstrumentationDetail? additionalDetail = null)
         {
         }
     }

@@ -44,7 +44,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             }
 
             (ExceptionTelemetry exceptionTelemetry, RequestTelemetry requestTelemetry) = this.Ai.GetParentOperationAndExceptionTelemetry<ExceptionTelemetry, RequestTelemetry>();
-            Assert.AreEqual(this.Ai.Activity.RootId, exceptionTelemetry.Context.Operation.Id);
+            Assert.AreEqual(this.Ai.Activity!.RootId, exceptionTelemetry.Context.Operation.Id);
             Assert.AreEqual(requestTelemetry.Id, exceptionTelemetry.Context.Operation.ParentId);
         }
     }
