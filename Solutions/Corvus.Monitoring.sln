@@ -11,6 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.Instrumentation.Abstractions.Specs", "Corvus.Monitoring.Instrumentation.Abstractions.Specs\Corvus.Monitoring.Instrumentation.Abstractions.Specs.csproj", "{A9A50DE9-9F2B-493F-937C-585DD83F59CD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{6B6669B7-1B51-4CC4-A446-DC2D7BB5AA40}"
+	ProjectSection(SolutionItems) = preProject
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
