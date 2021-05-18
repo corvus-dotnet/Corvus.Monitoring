@@ -1,6 +1,6 @@
 # Corvus.Monitoring
-[![#](https://img.shields.io/nuget/v/Corvus.Monitoring.Instrumentation.Abstractions.svg)](https://www.nuget.org/packages/Corvus.Monitoring.Instrumentation.Abstractions/) [![#](https://img.shields.io/nuget/v/Corvus.Monitoring.ApplicationInsights.svg)](https://www.nuget.org/packages/Corvus.Monitoring.ApplicationInsights/) [![Build Status](https://dev.azure.com/endjin-labs/Corvus.Monitoring/_apis/build/status/CI?branchName=master)](https://dev.azure.com/endjin-labs/Corvus.Monitoring/_build/latest?definitionId=48&branchName=master)
-[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.Monitoring/master/LICENSE)
+[![#](https://img.shields.io/nuget/v/Corvus.Monitoring.Instrumentation.Abstractions.svg)](https://www.nuget.org/packages/Corvus.Monitoring.Instrumentation.Abstractions/) [![#](https://img.shields.io/nuget/v/Corvus.Monitoring.ApplicationInsights.svg)](https://www.nuget.org/packages/Corvus.Monitoring.ApplicationInsights/) [![Build Status](https://dev.azure.com/endjin-labs/Corvus.Monitoring/_apis/build/status/CI?branchName=main)](https://dev.azure.com/endjin-labs/Corvus.Monitoring/_build/latest?definitionId=48&branchName=main)
+[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.Monitoring/main/LICENSE)
 [![IMM](https://endimmfuncdev.azurewebsites.net/api/imm/github/corvus-dotnet/Corvus.Monitoring/total?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/corvus-dotnet/Corvus.Monitoring/total?cache=false)
 
 Instrumentation, Telemetry and Monitoring libraries.
@@ -14,7 +14,7 @@ provides implementations of the abstractions that report all instrumentation dat
 
 ## Licenses
 
-[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.Monitoring/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.Monitoring/main/LICENSE)
 
 Corvus.Monitor is available under the Apache 2.0 open source license.
 
