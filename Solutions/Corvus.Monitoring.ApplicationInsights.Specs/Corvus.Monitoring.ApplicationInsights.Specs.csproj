@@ -22,7 +22,7 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.4.4" />
+    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.4.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Corvus.Monitoring.ApplicationInsights\Corvus.Monitoring.ApplicationInsights.csproj" />
