@@ -14,7 +14,6 @@ namespace Corvus.Monitoring.Instrumentation
     /// information.
     /// </para>
     /// </remarks>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "This warning does not recognize usage through DI")]
     internal class NullOperationsInstrumentation : IOperationsInstrumentation
     {
         /// <inheritdoc/>
@@ -25,7 +24,7 @@ namespace Corvus.Monitoring.Instrumentation
 
         private class Operation : IOperationInstance
         {
-            public static readonly Operation Instance = new Operation();
+            public static readonly Operation Instance = new();
 
             public void AddOperationDetail(AdditionalInstrumentationDetail detail)
             {

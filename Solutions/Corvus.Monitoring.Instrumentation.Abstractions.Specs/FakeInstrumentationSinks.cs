@@ -15,10 +15,10 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
     /// </summary>
     public class FakeInstrumentationSinks
     {
-        private readonly List<OperationDetail> operations = new List<OperationDetail>();
-        private readonly List<ExceptionDetail> exceptions = new List<ExceptionDetail>();
-        private readonly List<OperationDetail> genericOperations = new List<OperationDetail>();
-        private readonly List<ExceptionDetail> genericExceptions = new List<ExceptionDetail>();
+        private readonly List<OperationDetail> operations = new();
+        private readonly List<ExceptionDetail> exceptions = new();
+        private readonly List<OperationDetail> genericOperations = new();
+        private readonly List<ExceptionDetail> genericExceptions = new();
 
         /// <summary>
         /// Gets a list of the operations supplied to the underyling (non-generic) fake

@@ -14,7 +14,6 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
     /// to enhancements in our monitoring libraries. However, in Azure Functions, that's the only supported way
     /// to get hold of a correctly-initialized <c>TelemetryClient</c>, so it's a scenario we need to support.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Test members are public so the test framework can see them, but they're not intended for public consumption, so they don't require documentation")]
     public class TelemetryClientViaDiSpecs : AiSpecsBase
     {
         public TelemetryClientViaDiSpecs()

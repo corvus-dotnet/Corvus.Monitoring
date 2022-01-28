@@ -9,7 +9,6 @@ namespace Corvus.Monitoring.Instrumentation
     /// based on the type argument.
     /// </summary>
     /// <typeparam name="T">The source type.</typeparam>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "This warning does not recognize usage through DI")]
     internal class TaggingOperationsInstrumentation<T> : IOperationsInstrumentation<T>
     {
         private readonly TaggingPropertySource propertySource;

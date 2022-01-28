@@ -142,11 +142,8 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         {
             IServiceProvider sp = this.Services.BuildServiceProvider();
 
-            // These two calls are to the method defined below. Roslynator gets confused and thinks they are local calls.
-#pragma warning disable SA1101 // Prefix local calls with this
             Get(ref this.exceptionsInstrumentation);
             Get(ref this.operationsInstrumentation);
-#pragma warning restore SA1101 // Prefix local calls with this
 
             void Get<T>(ref T target)
             {

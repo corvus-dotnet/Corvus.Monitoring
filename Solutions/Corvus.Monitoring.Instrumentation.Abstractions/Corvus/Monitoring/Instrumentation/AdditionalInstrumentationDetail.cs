@@ -44,7 +44,7 @@ namespace Corvus.Monitoring.Instrumentation
         /// dictionary to be created.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)] // Evaluation has side effects.
-        public IDictionary<string, string> Properties => this.PropertiesIfPresent ?? (this.PropertiesIfPresent = new Dictionary<string, string>());
+        public IDictionary<string, string> Properties => this.PropertiesIfPresent ??= new Dictionary<string, string>();
 
         /// <summary>
         /// Gets the dictionary of numeric properties to associate with some instrumentation. If
@@ -52,7 +52,7 @@ namespace Corvus.Monitoring.Instrumentation
         /// dictionary to be created.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)] // Evaluation has side effects.
-        public IDictionary<string, double> Metrics => this.MetricsIfPresent ?? (this.MetricsIfPresent = new Dictionary<string, double>());
+        public IDictionary<string, double> Metrics => this.MetricsIfPresent ??= new Dictionary<string, double>();
 
         /// <summary>
         /// Gets the dictionary of string properties to associate with some instrumentation, or

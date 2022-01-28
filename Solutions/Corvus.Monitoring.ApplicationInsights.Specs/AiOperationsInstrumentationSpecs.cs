@@ -12,7 +12,6 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
     /// <summary>
     /// Unit tests for Application Insights telemetry for operations.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Test members are public so the test framework can see them, but they're not intended for public consumption, so they don't require documentation")]
     public class AiOperationsInstrumentationSpecs : AiSpecsBase
     {
         [Test]
@@ -163,7 +162,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             return (RequestTelemetry)this.Ai.Items[0];
         }
 
-        private (RequestTelemetry child, RequestTelemetry parent) GetChildParentRequestTelemetry()
+        private (RequestTelemetry Child, RequestTelemetry Parent) GetChildParentRequestTelemetry()
         {
             Assert.AreEqual(2, this.Ai.Items.Count, "Number of telemetry items");
             var child = (RequestTelemetry)this.Ai.Items[0];

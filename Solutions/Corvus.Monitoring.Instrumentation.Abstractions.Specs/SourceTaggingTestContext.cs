@@ -12,7 +12,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
     public class SourceTaggingTestContext : IDisposable
     {
         private readonly ServiceProvider serviceProvider;
-        private readonly FakeInstrumentationSinks fakeInstrumentationSinks = new FakeInstrumentationSinks();
+        private readonly FakeInstrumentationSinks fakeInstrumentationSinks = new();
 
         public SourceTaggingTestContext()
         {
