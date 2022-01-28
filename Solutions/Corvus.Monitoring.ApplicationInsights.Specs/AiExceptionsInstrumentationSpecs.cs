@@ -12,7 +12,6 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
     /// <summary>
     /// Unit tests for Application Insights telemetry for exceptions.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Test members are public so the test framework can see them, but they're not intended for public consumption, so they don't require documentation")]
     public class AiExceptionsInstrumentationSpecs : AiSpecsBase
     {
         [Test]
@@ -70,7 +69,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         private ExceptionTelemetry GetSingleExceptionTelemetry()
             => this.Ai.GetSingleTelemetry<ExceptionTelemetry>();
 
-        private (ExceptionTelemetry exception, RequestTelemetry operation) GetExceptionAndParentRequestTelemetry()
+        private (ExceptionTelemetry Exception, RequestTelemetry Operation) GetExceptionAndParentRequestTelemetry()
             => this.Ai.GetParentOperationAndExceptionTelemetry<ExceptionTelemetry, RequestTelemetry>();
 
         private ArgumentException ThrowReportAndCatchException(

@@ -16,7 +16,6 @@ namespace Corvus.Monitoring.Instrumentation
     /// information.
     /// </para>
     /// </remarks>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "This warning does not recognize usage through DI")]
     internal class NullExceptionsInstrumentation : IExceptionsInstrumentation
     {
         /// <inheritdoc/>

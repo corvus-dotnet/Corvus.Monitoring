@@ -106,7 +106,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// even though the call to create the operation happens first. The operation telemetry
         /// doesn't get created until the operation completes.
         /// </remarks>
-        public (T1, T2) GetParentOperationAndExceptionTelemetry<T1, T2>()
+        public (T1 Child, T2 Parent) GetParentOperationAndExceptionTelemetry<T1, T2>()
         {
             Assert.AreEqual(2, this.Items.Count, "Number of telemetry items");
             return ((T1)this.Items[0], (T2)this.Items[1]);
