@@ -328,3 +328,8 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Scripted Build Migration
+_codeCoverage/
+_packages/
+*.sbom.*
