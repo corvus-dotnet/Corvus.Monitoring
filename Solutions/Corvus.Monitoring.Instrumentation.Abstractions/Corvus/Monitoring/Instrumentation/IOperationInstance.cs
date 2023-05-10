@@ -30,9 +30,17 @@ namespace Corvus.Monitoring.Instrumentation
     public interface IOperationInstance : IDisposable
     {
         /// <summary>
-        /// Adds one or more entries to the additional data associated with this request.
+        /// Adds a property to the additional data associated with this request.
         /// </summary>
-        /// <param name="detail">The detail to add.</param>
-        void AddOperationDetail(AdditionalInstrumentationDetail detail);
+        /// <param name="name">The property name.</param>
+        /// <param name="value">The property value.</param>
+        void AddOperationProperty(string name, string value);
+
+        /// <summary>
+        /// Adds a metric value to the additional data associated with this request.
+        /// </summary>
+        /// <param name="name">The metric name.</param>
+        /// <param name="value">The metric value.</param>
+        void AddOperationMetric(string name, double value);
     }
 }

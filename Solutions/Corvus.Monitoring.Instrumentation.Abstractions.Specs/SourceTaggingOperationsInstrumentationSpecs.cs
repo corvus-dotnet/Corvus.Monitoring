@@ -4,6 +4,7 @@
 
 namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
+    using System.Linq;
     using Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes;
     using NUnit.Framework;
 
@@ -148,12 +149,12 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 
             var furtherDetail1 = new AdditionalInstrumentationDetail
             {
-                Properties = { { ExistingDetailKey, ExistingDetailValue } },
+                Properties = { { "Edk1", "Edv1" } },
                 Metrics = { { "m1", 42.0 } },
             };
             var furtherDetail2 = new AdditionalInstrumentationDetail
             {
-                Properties = { { ExistingDetailKey, ExistingDetailValue } },
+                Properties = { { "Edk2", "Edv2" } },
                 Metrics = { { "m2", 99.0 } },
             };
 
@@ -164,25 +165,15 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             }
 
             OperationDetail opDetail = this.Context.Operations[0];
-            Assert.AreEqual(2, opDetail.FurtherDetails.Count, "FurtherDetails.Count");
-
-            Assert.AreSame(furtherDetail1, opDetail.FurtherDetails[0], "FurtherDetails[0]");
-            Assert.AreSame(furtherDetail2, opDetail.FurtherDetails[1], "FurtherDetails[1]");
 
             // Check they've not changed
-            Assert.AreSame(furtherDetail1.Properties, opDetail.FurtherDetails[0].Properties, "FurtherDetails[0].Properties instance");
-            Assert.AreSame(furtherDetail1.Metrics, opDetail.FurtherDetails[0].Metrics, "FurtherDetails[0].Metrics instance");
-            Assert.AreEqual(1, furtherDetail1.Properties.Count);
-            Assert.AreEqual(ExistingDetailValue, furtherDetail1.Properties[ExistingDetailKey]);
-            Assert.AreEqual(1, furtherDetail1.Metrics.Count);
-            Assert.AreEqual(42.0, furtherDetail1.Metrics["m1"]);
+            Assert.AreEqual(2, opDetail.FurtherDetails.Properties.Count, "FurtherDetails.Properties Count");
+            Assert.AreEqual(2, opDetail.FurtherDetails.Metrics.Count, "FurtherDetails.Metrics Count");
 
-            Assert.AreSame(furtherDetail2.Properties, opDetail.FurtherDetails[1].Properties, "FurtherDetails[1].Properties instance");
-            Assert.AreSame(furtherDetail2.Metrics, opDetail.FurtherDetails[1].Metrics, "FurtherDetails[1].Metrics instance");
-            Assert.AreEqual(1, furtherDetail2.Properties.Count);
-            Assert.AreEqual(ExistingDetailValue, furtherDetail2.Properties[ExistingDetailKey]);
-            Assert.AreEqual(1, furtherDetail2.Metrics.Count);
-            Assert.AreEqual(99.0, furtherDetail2.Metrics["m2"]);
+            Assert.AreEqual("Edv1", opDetail.FurtherDetails.Properties["Edk1"]);
+            Assert.AreEqual("Edv2", opDetail.FurtherDetails.Properties["Edk2"]);
+            Assert.AreEqual(42.0, opDetail.FurtherDetails.Metrics["m1"]);
+            Assert.AreEqual(99.0, opDetail.FurtherDetails.Metrics["m2"]);
         }
 
         private OperationDetail ReportOperation1(AdditionalInstrumentationDetail? suppliedDetail = null)
