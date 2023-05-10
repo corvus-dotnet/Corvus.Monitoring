@@ -75,12 +75,12 @@ namespace Corvus.Monitoring.Instrumentation
         {
             if (t.IsGenericType)
             {
-                string nameWithArity = t.GetGenericTypeDefinition().FullName;
+                string nameWithArity = t.GetGenericTypeDefinition().FullName!;
                 int arityMarkerIndex = nameWithArity.LastIndexOf('`');
                 return nameWithArity.Substring(0, arityMarkerIndex);
             }
 
-            return t.FullName;
+            return t.FullName!;
         }
     }
 }

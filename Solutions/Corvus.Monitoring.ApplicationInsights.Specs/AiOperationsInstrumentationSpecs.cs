@@ -118,20 +118,22 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [Test]
         public void WhenChildOperationFinishesTelemetryIncludesParentId()
         {
-            string testActivityId = Activity.Current.Id;
-            string parentOpActivityId;
-            string childOpActivityId;
+            string? testActivityId = Activity.Current?.Id;
+            string? parentOpActivityId;
+            string? childOpActivityId;
             using (this.Ai.OperationsInstrumentation.StartOperation("ParentOp"))
             {
-                parentOpActivityId = Activity.Current.Id;
+                parentOpActivityId = Activity.Current?.Id;
                 using (this.Ai.OperationsInstrumentation.StartOperation("ChildOp"))
                 {
-                    childOpActivityId = Activity.Current.Id;
+                    childOpActivityId = Activity.Current?.Id;
                 }
             }
 
             (RequestTelemetry child, RequestTelemetry parent) = this.GetChildParentRequestTelemetry();
 
+            Assert.IsNotNull(parentOpActivityId);
+            Assert.IsNotNull(childOpActivityId);
             Assert.AreNotEqual(parent.Id, child.Id);
             Assert.IsTrue(child.Id.StartsWith(parent.Id));
 

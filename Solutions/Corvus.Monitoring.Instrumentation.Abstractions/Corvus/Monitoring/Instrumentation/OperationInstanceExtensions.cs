@@ -25,7 +25,7 @@ namespace Corvus.Monitoring.Instrumentation
                 throw new ArgumentNullException(nameof(value));
             }
 
-            operation.AddOperationProperty(name, value.ToString());
+            operation.AddOperationProperty(name, value.ToString()!);
         }
 
         /// <summary>
