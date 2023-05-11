@@ -28,12 +28,10 @@ namespace Corvus.Monitoring.Instrumentation
 
             public void AddOperationMetric(string name, double value)
             {
-                throw new System.NotImplementedException();
             }
 
             public void AddOperationProperty(string name, string value)
             {
-                throw new System.NotImplementedException();
             }
 
             public void Dispose()
