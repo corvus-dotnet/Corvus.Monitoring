@@ -4,6 +4,7 @@
 
 namespace Corvus.Monitoring.ApplicationInsights
 {
+    using System;
     using System.Collections.Generic;
     using Corvus.Monitoring.Instrumentation;
     using Microsoft.ApplicationInsights;
@@ -60,23 +61,29 @@ namespace Corvus.Monitoring.ApplicationInsights
                 this.operationHolder = operationHolder;
             }
 
-            public void AddOperationDetail(AdditionalInstrumentationDetail detail)
+            public void AddOperationProperty(string name, string value)
             {
-                if (detail.Properties != null)
+                if (string.IsNullOrEmpty(name))
                 {
-                    foreach (KeyValuePair<string, string> property in detail.Properties)
-                    {
-                        this.operationHolder.Telemetry.Properties.Add(property);
-                    }
+                    throw new ArgumentNullException(nameof(name));
                 }
 
-                if (detail.Metrics != null)
+                if (string.IsNullOrEmpty(value))
                 {
-                    foreach (KeyValuePair<string, double> metric in detail.Metrics)
-                    {
-                        this.operationHolder.Telemetry.Metrics.Add(metric);
-                    }
+                    throw new ArgumentNullException(nameof(value));
                 }
+
+                this.operationHolder.Telemetry.Properties.Add(name, value);
+            }
+
+            public void AddOperationMetric(string name, double value)
+            {
+                if (string.IsNullOrEmpty(name))
+                {
+                    throw new ArgumentNullException(nameof(name));
+                }
+
+                this.operationHolder.Telemetry.Metrics.Add(name, value);
             }
 
             public void Dispose()

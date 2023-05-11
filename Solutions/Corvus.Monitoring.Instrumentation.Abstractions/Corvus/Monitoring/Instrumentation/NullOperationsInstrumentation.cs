@@ -26,7 +26,11 @@ namespace Corvus.Monitoring.Instrumentation
         {
             public static readonly Operation Instance = new();
 
-            public void AddOperationDetail(AdditionalInstrumentationDetail detail)
+            public void AddOperationMetric(string name, double value)
+            {
+            }
+
+            public void AddOperationProperty(string name, string value)
             {
             }
 

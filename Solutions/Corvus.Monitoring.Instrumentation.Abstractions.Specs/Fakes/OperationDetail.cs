@@ -18,14 +18,16 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
     /// </remarks>
     public class OperationDetail : IOperationInstance
     {
-        private readonly List<AdditionalInstrumentationDetail> furtherDetails = new();
+        private AdditionalInstrumentationDetail furtherDetails = new(
+            new Dictionary<string, string>(),
+            new Dictionary<string, double>());
 
         public OperationDetail(
             string name,
             AdditionalInstrumentationDetail? additionalDetail)
         {
             this.Name = name;
-            this.AdditionalDetail = additionalDetail;
+            this.AdditionalDetail = additionalDetail ?? new();
         }
 
         /// <summary>
@@ -41,9 +43,10 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
 
         /// <summary>
         /// Gets a list of any further instrumentation detail provided by calls to
-        /// <see cref="IOperationInstance.AddOperationDetail(AdditionalInstrumentationDetail)"/>.
+        /// <see cref="IOperationInstance.AddOperationProperty(string, string)"/> and
+        /// <see cref="IOperationInstance.AddOperationMetric(string, double)"/>.
         /// </summary>
-        public IReadOnlyList<AdditionalInstrumentationDetail> FurtherDetails => this.furtherDetails;
+        public AdditionalInstrumentationDetail FurtherDetails => this.furtherDetails;
 
         /// <summary>
         /// Gets a value indicating whether the code providing instrumentation to our fake has
@@ -52,9 +55,14 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes
         /// </summary>
         public bool IsDisposed { get; private set; }
 
-        void IOperationInstance.AddOperationDetail(AdditionalInstrumentationDetail detail)
+        public void AddOperationMetric(string name, double value)
         {
-            this.furtherDetails.Add(detail);
+            this.furtherDetails.Metrics.Add(name, value);
+        }
+
+        public void AddOperationProperty(string name, string value)
+        {
+            this.furtherDetails.Properties.Add(name, value);
         }
 
         void IDisposable.Dispose()

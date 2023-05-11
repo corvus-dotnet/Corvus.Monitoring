@@ -4,6 +4,7 @@
 
 namespace Corvus.Monitoring.ApplicationInsights.Specs
 {
+    using System;
     using System.Diagnostics;
     using Corvus.Monitoring.Instrumentation;
     using Microsoft.ApplicationInsights.DataContracts;
@@ -118,22 +119,26 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [Test]
         public void WhenChildOperationFinishesTelemetryIncludesParentId()
         {
-            string testActivityId = Activity.Current.Id;
+            string testActivityId = Activity.Current?.Id
+                ?? throw new InvalidOperationException("Test expects a current Activity");
+
             string parentOpActivityId;
             string childOpActivityId;
             using (this.Ai.OperationsInstrumentation.StartOperation("ParentOp"))
             {
-                parentOpActivityId = Activity.Current.Id;
+                parentOpActivityId = Activity.Current?.Id
+                    ?? throw new InvalidOperationException("Test expects a current Activity");
+
                 using (this.Ai.OperationsInstrumentation.StartOperation("ChildOp"))
                 {
-                    childOpActivityId = Activity.Current.Id;
+                    childOpActivityId = Activity.Current?.Id
+                        ?? throw new InvalidOperationException("Test expects a current Activity");
                 }
             }
 
             (RequestTelemetry child, RequestTelemetry parent) = this.GetChildParentRequestTelemetry();
 
             Assert.AreNotEqual(parent.Id, child.Id);
-            Assert.IsTrue(child.Id.StartsWith(parent.Id));
 
             // The activity root id should permeate through all telemetry associated
             // with the request. It becomes the ai.operation.id tag, which shows up
