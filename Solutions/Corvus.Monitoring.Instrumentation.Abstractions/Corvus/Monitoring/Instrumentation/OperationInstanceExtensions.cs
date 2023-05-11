@@ -5,7 +5,6 @@
 namespace Corvus.Monitoring.Instrumentation
 {
     using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Extension methods for <see cref="IOperationInstance"/>s.
@@ -26,30 +25,6 @@ namespace Corvus.Monitoring.Instrumentation
             }
 
             operation.AddOperationProperty(name, value.ToString()!);
-        }
-
-        /// <summary>
-        /// Adds one or more entries to the additional data associated with this request.
-        /// </summary>
-        /// <param name="operation">The operation to add detail to.</param>
-        /// <param name="detail">The detail to add.</param>
-        public static void AddOperationDetail(this IOperationInstance operation, AdditionalInstrumentationDetail detail)
-        {
-            if (detail.Properties != null)
-            {
-                foreach (KeyValuePair<string, string> property in detail.Properties)
-                {
-                    operation.AddOperationProperty(property.Key, property.Value);
-                }
-            }
-
-            if (detail.Metrics != null)
-            {
-                foreach (KeyValuePair<string, double> metric in detail.Metrics)
-                {
-                    operation.AddOperationMetric(metric.Key, metric.Value);
-                }
-            }
         }
     }
 }

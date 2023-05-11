@@ -5,6 +5,7 @@
 namespace Corvus.Monitoring.Instrumentation
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// A logical operation in progress.
@@ -42,5 +43,28 @@ namespace Corvus.Monitoring.Instrumentation
         /// <param name="name">The metric name.</param>
         /// <param name="value">The metric value.</param>
         void AddOperationMetric(string name, double value);
+
+        /// <summary>
+        /// Adds one or more entries to the additional data associated with this request.
+        /// </summary>
+        /// <param name="detail">The detail to add.</param>
+        void AddOperationDetail(AdditionalInstrumentationDetail detail)
+        {
+            if (detail.Properties != null)
+            {
+                foreach (KeyValuePair<string, string> property in detail.Properties)
+                {
+                    this.AddOperationProperty(property.Key, property.Value);
+                }
+            }
+
+            if (detail.Metrics != null)
+            {
+                foreach (KeyValuePair<string, double> metric in detail.Metrics)
+                {
+                    this.AddOperationMetric(metric.Key, metric.Value);
+                }
+            }
+        }
     }
 }
