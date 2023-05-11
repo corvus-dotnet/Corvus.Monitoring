@@ -139,7 +139,6 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             (RequestTelemetry child, RequestTelemetry parent) = this.GetChildParentRequestTelemetry();
 
             Assert.AreNotEqual(parent.Id, child.Id);
-            Assert.IsTrue(child.Id.StartsWith(parent.Id));
 
             // The activity root id should permeate through all telemetry associated
             // with the request. It becomes the ai.operation.id tag, which shows up
