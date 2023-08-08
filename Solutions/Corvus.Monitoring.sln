@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29411.108
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.Instrumentation.Abstractions", "Corvus.Monitoring.Instrumentation.Abstractions\Corvus.Monitoring.Instrumentation.Abstractions.csproj", "{DD9E2767-7FE1-4E92-B39A-B421DC405936}"
 EndProject
@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{6B6669
 	ProjectSection(SolutionItems) = preProject
 		..\azure-pipelines.yml = ..\azure-pipelines.yml
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.Monitoring.AspnetCore.Mvc", "Corvus.Monitoring.AspnetCore.Mvc\Corvus.Monitoring.AspnetCore.Mvc.csproj", "{B2B9B3B3-499B-4622-9CB6-160981EC0C7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{A9A50DE9-9F2B-493F-937C-585DD83F59CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9A50DE9-9F2B-493F-937C-585DD83F59CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9A50DE9-9F2B-493F-937C-585DD83F59CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2B9B3B3-499B-4622-9CB6-160981EC0C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B9B3B3-499B-4622-9CB6-160981EC0C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B9B3B3-499B-4622-9CB6-160981EC0C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B9B3B3-499B-4622-9CB6-160981EC0C7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
