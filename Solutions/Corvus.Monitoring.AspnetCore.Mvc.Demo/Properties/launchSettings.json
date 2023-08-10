@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "Corvus.Monitoring.AspnetCore.Mvc.Demo": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7168;http://localhost:5051",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
