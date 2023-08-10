@@ -13,6 +13,17 @@ namespace Corvus.Monitoring.AspnetCore.Mvc
     /// <summary>
     /// Action filter which logs execution times for action methods.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Adding this action filter to a controller will cause two operations to be started (using the current
+    /// IOperationsInstrumentation) per request. The first is for execution of the action method and the second
+    /// is for execution of the result.
+    /// </para>
+    /// <para>
+    /// If the target controller implements IHaveObservableActionMethods, the CurrentOperation property on the
+    /// controller will be set before the action method is executed.
+    /// </para>
+    /// </remarks>
     public class ObservableActionMethodsAttribute : ActionFilterAttribute
     {
         /// <inheritdoc/>
