@@ -15,7 +15,8 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Steps
     [Binding]
     public class ControllerOperationsSteps : Steps
     {
-        private const string ExpectedActionExecutionOperationName 
+        private static readonly string ExpectedActionExecutionOperationName = $"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}";
+        private static readonly string ExpectedResultExecutionOperationName = $"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}::ResultExecution";
 
         [Given("my controller implements the IHaveObservableActionMethods interface and has the ObservableActionMethodsAttribute applied to it")]
         public void GivenMyControllerImplementsTheIHaveObservableActionMethodsInterfaceAndHasTheObservableActionMethodsAttributeAppliedToIt()
@@ -33,14 +34,14 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Steps
         [Then("an IOperationInstance should have been created for the action execution")]
         public void ThenAnIOperationInstanceShouldHaveBeenCreatedForTheActionExecution()
         {
-            TestOperationInstance? operation = this.GetOperationInstance($"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}");
+            TestOperationInstance? operation = this.GetOperationInstance(ExpectedActionExecutionOperationName);
             Assert.IsNotNull(operation);
         }
 
         [Then("route data should have been added to the IOperationInstance for the action execution")]
         public void ThenRouteDataShouldHaveBeenAddedToTheIOperationInstanceForTheActionExecution()
         {
-            TestOperationInstance operation = this.GetOperationInstance($"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}")!;
+            TestOperationInstance operation = this.GetOperationInstance(ExpectedActionExecutionOperationName)!;
 
             Assert.IsTrue(operation.Properties.ContainsKey("RouteData[controller]"));
             Assert.AreEqual("Home", operation.Properties["RouteData[controller]"]);
@@ -55,13 +56,13 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Steps
         [Then("operation properties added in the action method should have been added to the IOperationInstance for the action execution")]
         public void ThenOperationPropertiesAddedInTheActionMethodShouldHaveBeenAddedToTheIOperationInstanceForTheActionExecution()
         {
-            TestOperationInstance operation = this.GetOperationInstance($"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}")!;
+            TestOperationInstance operation = this.GetOperationInstance(ExpectedActionExecutionOperationName)!;
         }
 
         [Then("an IOperationInstance should have been created for the result execution")]
         public void ThenAnIOperationInstanceShouldHaveBeenCreatedForTheResultExecution()
         {
-            TestOperationInstance? operation = this.GetOperationInstance($"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}::ResultExecution");
+            TestOperationInstance? operation = this.GetOperationInstance(ExpectedResultExecutionOperationName);
             Assert.IsNotNull(operation);
         }
 
