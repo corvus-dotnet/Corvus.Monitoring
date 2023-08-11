@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
+
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <!-- Disabling SA1204 because it prioritizes static/non-static over public/non-public, which doesn't fit very well
-         with bindings in SpecFlow.
-         Disabling SA1600, SA1602 (all public types and members to be documented) because test projects need to make lots of types
-         public for technical reasons, but they are not meant for public consumption, so XML doc comments are only
-         appropriate if they aid understanding within the project.
-    -->
-    <NoWarn>RCS1029;SA0001;SA1204;SA1600;SA1602;CS1591</NoWarn>
-    <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Corvus.Monitoring.AspnetCore.Mvc.Demo</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Corvus.Monitoring.AspnetCore.Mvc.Specs" />
+  </ItemGroup>
+  
   <PropertyGroup>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <RestoreLockedMode Condition="$(ContinuousIntegrationBuild) == 'true'">true</RestoreLockedMode>
@@ -24,10 +24,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[3.1.*,)" />
-    <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.6.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
+
   <ItemGroup>
+    <ProjectReference Include="..\Corvus.Monitoring.AspnetCore.Mvc\Corvus.Monitoring.AspnetCore.Mvc.csproj" />
     <ProjectReference Include="..\Corvus.Monitoring.Instrumentation.Abstractions\Corvus.Monitoring.Instrumentation.Abstractions.csproj" />
   </ItemGroup>
 </Project>
