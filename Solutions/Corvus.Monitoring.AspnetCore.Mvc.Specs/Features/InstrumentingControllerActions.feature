@@ -1,8 +1,9 @@
-﻿Feature: Controller Operations
+﻿Feature: Instrumenting controller actions
 
 As a developer
 When I add the ObservableActionMethodsAttribute to my controller
 I want my controller actions to have spans created for them automatically
+And I want to be able to add custom data to those spans
 
 Scenario: Basic instrumentation of controller action methods
 	Given my controller has the ObservableActionMethodsAttribute applied to it

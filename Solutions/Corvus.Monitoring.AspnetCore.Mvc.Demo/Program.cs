@@ -7,8 +7,11 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Add Corvus.Monitoring. This will add the "null" implementations of IOperationsInstrumentation and IExceptionsInstrumentation
-// by default.
+// Add Corvus.Monitoring. This is the only line of code needed to add Corvus.Monitoring, but this specific
+// call will add the "null" implementations of IOperationsInstrumentation and IExceptionsInstrumentation.
+// In a real world solution, you would use an implementation-specific call; i.e.
+//     builder.services.AddApplicationInsightsInstrumentationTelemetry()
+// to add the App Insights specific implementations.
 builder.Services.AddInstrumentation();
 
 WebApplication app = builder.Build();

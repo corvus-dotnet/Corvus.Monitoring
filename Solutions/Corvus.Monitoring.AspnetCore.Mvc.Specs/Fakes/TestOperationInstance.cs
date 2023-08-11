@@ -38,23 +38,6 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Fakes
 
         public bool IsDisposed { get; private set; } = false;
 
-        public DateTimeOffset StartDateTimeUtc { get; } = DateTimeOffset.UtcNow;
-
-        public DateTimeOffset? EndDateTimeUtc { get; private set; }
-
-        public TimeSpan Duration
-        {
-            get
-            {
-                if (!this.IsDisposed)
-                {
-                    throw new InvalidOperationException("Cannot get the duration of a TestOperationInstance until it has been disposed");
-                }
-
-                return this.EndDateTimeUtc!.Value - this.StartDateTimeUtc;
-            }
-        }
-
         public void AddOperationMetric(string name, double value)
         {
             this.Metrics.Add(name, value);
@@ -73,7 +56,6 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Fakes
             }
 
             this.IsDisposed = true;
-            this.EndDateTimeUtc = DateTimeOffset.UtcNow;
 
             this.Metrics = new ReadOnlyDictionary<string, double>(this.Metrics);
             this.Properties = new ReadOnlyDictionary<string, string>(this.Properties);
