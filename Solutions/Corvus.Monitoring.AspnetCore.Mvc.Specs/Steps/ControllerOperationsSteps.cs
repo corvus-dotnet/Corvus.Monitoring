@@ -18,8 +18,8 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Steps
         private static readonly string ExpectedActionExecutionOperationName = $"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}";
         private static readonly string ExpectedResultExecutionOperationName = $"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}::ResultExecution";
 
-        [Given("my controller implements the IHaveObservableActionMethods interface and has the ObservableActionMethodsAttribute applied to it")]
-        public void GivenMyControllerImplementsTheIHaveObservableActionMethodsInterfaceAndHasTheObservableActionMethodsAttributeAppliedToIt()
+        [Given("my controller has the ObservableActionMethodsAttribute applied to it")]
+        public void GivenMyControllerHasTheObservableActionMethodsAttributeAppliedToIt()
         {
             // Nothing to do here.
         }
@@ -57,6 +57,21 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Steps
         public void ThenOperationPropertiesAddedInTheActionMethodShouldHaveBeenAddedToTheIOperationInstanceForTheActionExecution()
         {
             TestOperationInstance operation = this.GetOperationInstance(ExpectedActionExecutionOperationName)!;
+
+            Assert.IsTrue(operation.Properties.ContainsKey("HomeController.Index:CustomProperty1"));
+            Assert.AreEqual("ExampleValue1", operation.Properties["HomeController.Index:CustomProperty1"]);
+
+            Assert.IsTrue(operation.Properties.ContainsKey("HomeController.Index:CustomProperty2"));
+            Assert.AreEqual("ExampleValue2", operation.Properties["HomeController.Index:CustomProperty2"]);
+        }
+
+        [Then("operation properties added in the view should have been added to the IOperationInstance for the result execution")]
+        public void ThenOperationPropertiesAddedInTheViewShouldHaveBeenAddedToTheIOperationInstanceForTheResultExecution()
+        {
+            TestOperationInstance operation = this.GetOperationInstance(ExpectedResultExecutionOperationName)!;
+
+            Assert.IsTrue(operation.Properties.ContainsKey("Index.cshtml:CustomProperty1"));
+            Assert.AreEqual("ExampleValue1", operation.Properties["Index.cshtml:CustomProperty1"]);
         }
 
         [Then("an IOperationInstance should have been created for the result execution")]

@@ -4,6 +4,7 @@
 
 namespace Corvus.Monitoring.AspnetCore.Mvc.Demo.Controllers
 {
+    using Corvus.Monitoring.AspNetCore.Mvc;
     using Corvus.Monitoring.Instrumentation;
     using Microsoft.AspNetCore.Mvc;
 
@@ -11,18 +12,21 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Demo.Controllers
     /// Base class for controllers in this application.
     /// </summary>
     /// <remarks>
-    /// Having a base class for your controllers that implements <see cref="IHaveObservableActionMethods "/>
-    /// and has the <see cref="ObservableActionMethodsAttribute"/> action filter is the simplest way of
-    /// adding observability to your controllers.
+    /// Having a base class for your controllers that has the <see cref="ObservableActionMethodsAttribute"/>
+    /// action filter is the simplest way of adding observability to all of your controllers.
     /// </remarks>
     [ObservableActionMethods]
-    public abstract class BaseController : Controller, IHaveObservableActionMethods
+    public abstract class BaseController : Controller
     {
-        /// <inheritdoc/>
-        public IOperationInstance? CurrentOperation
+        /// <summary>
+        /// Gets the current <see cref="IOperationInstance"/>.
+        /// </summary>
+        /// <remarks>
+        /// This property is provided to simplify access to the current operation stored on the HttpContext.
+        /// </remarks>
+        public IOperationInstance CurrentOperation
         {
-            get;
-            set;
+            get => this.HttpContext.GetCurrentOperationInstance();
         }
     }
 }

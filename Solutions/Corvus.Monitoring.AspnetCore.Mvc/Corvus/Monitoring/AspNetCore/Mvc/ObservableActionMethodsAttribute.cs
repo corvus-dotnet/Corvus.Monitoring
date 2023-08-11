@@ -5,6 +5,7 @@
 namespace Corvus.Monitoring.AspnetCore.Mvc
 {
     using System.Threading.Tasks;
+    using Corvus.Monitoring.AspNetCore.Mvc;
     using Corvus.Monitoring.Instrumentation;
     using Microsoft.AspNetCore.Mvc.Controllers;
     using Microsoft.AspNetCore.Mvc.Filters;
@@ -20,8 +21,10 @@ namespace Corvus.Monitoring.AspnetCore.Mvc
     /// is for execution of the result.
     /// </para>
     /// <para>
-    /// If the target controller implements IHaveObservableActionMethods, the CurrentOperation property on the
-    /// controller will be set before the action method is executed.
+    /// The <see cref="IOperationInstance"/> instances will also be added to the HttpContext for the duration of
+    /// action method or result execution, and are accessible via the
+    /// <see cref="HttpContextExtensions.GetCurrentOperationInstance(Microsoft.AspNetCore.Http.HttpContext)"/>
+    /// extension method.
     /// </para>
     /// </remarks>
     public class ObservableActionMethodsAttribute : ActionFilterAttribute
@@ -40,12 +43,11 @@ namespace Corvus.Monitoring.AspnetCore.Mvc
             // Add route parameters to the current operation data
             operation.AddRouteData(context.RouteData);
 
-            if (context.Controller is IHaveObservableActionMethods observableController)
-            {
-                observableController.CurrentOperation = operation;
-            }
+            context.HttpContext.SetCurrentOperationInstance(operation);
 
             await next.Invoke();
+
+            context.HttpContext.ClearCurrentOperationInstance();
         }
 
         /// <inheritdoc/>
@@ -59,7 +61,11 @@ namespace Corvus.Monitoring.AspnetCore.Mvc
 
             using IOperationInstance operation = instrumentation.StartOperation($"{actionDescriptor.ControllerTypeInfo.FullName}.{actionDescriptor.MethodInfo.Name}::ResultExecution");
 
+            context.HttpContext.SetCurrentOperationInstance(operation);
+
             await next.Invoke();
+
+            context.HttpContext.ClearCurrentOperationInstance();
         }
     }
 }
