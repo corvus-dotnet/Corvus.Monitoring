@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
+
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
     <!-- Disabling SA1204 because it prioritizes static/non-static over public/non-public, which doesn't fit very well
          with bindings in SpecFlow.
          Disabling SA1600, SA1602 (all public types and members to be documented) because test projects need to make lots of types
@@ -10,8 +14,7 @@
          appropriate if they aid understanding within the project.
     -->
     <NoWarn>RCS1029;SA0001;SA1204;SA1600;SA1602;CS1591</NoWarn>
-    <IsPackable>false</IsPackable>
-    <Nullable>enable</Nullable>
+    <RootNamespace>Corvus.Monitoring.AspnetCore.Mvc.Specs</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -24,10 +27,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[3.1.*,)" />
     <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="1.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.21" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Corvus.Monitoring.Instrumentation.Abstractions\Corvus.Monitoring.Instrumentation.Abstractions.csproj" />
+    <ProjectReference Include="..\Corvus.Monitoring.AspnetCore.Mvc.Demo\Corvus.Monitoring.AspnetCore.Mvc.Demo.csproj" />
   </ItemGroup>
+
 </Project>

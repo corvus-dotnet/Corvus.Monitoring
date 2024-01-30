@@ -333,3 +333,6 @@ ASALocalRun/
 _codeCoverage/
 _packages/
 *.sbom.*
+
+# Specflow generated files
+*.feature.cs
