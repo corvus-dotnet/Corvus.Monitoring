@@ -6,7 +6,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
 {
     using System;
     using Microsoft.ApplicationInsights.DataContracts;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// In general it's preferable not to put the Application Insights <c>TelemetryClient</c> into the DI service
@@ -14,6 +14,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
     /// to enhancements in our monitoring libraries. However, in Azure Functions, that's the only supported way
     /// to get hold of a correctly-initialized <c>TelemetryClient</c>, so it's a scenario we need to support.
     /// </summary>
+    [TestClass]
     public class TelemetryClientViaDiSpecs : AiSpecsBase
     {
         public TelemetryClientViaDiSpecs()
@@ -21,7 +22,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         {
         }
 
-        [Test]
+        [TestMethod]
         public void InstrumentationReportsTelemetryToAiWhenClientObtainedViaDi()
         {
             // We're not going to exercise everything. Just perform a basic smoke test, and some

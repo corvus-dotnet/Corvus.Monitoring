@@ -12,7 +12,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.Extensions.DependencyInjection;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Common aspects of tests involving Application Insights client and telemetry.
@@ -31,15 +31,16 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// </param>
         public AiTestContext(bool telemetryClientViaDi)
         {
-            var items = new List<ITelemetry>();
+            List<ITelemetry> items = [];
             this.Items = items;
-            var channel = new FakeTelemetryChannel(items);
+            FakeTelemetryChannel channel = new(items);
 
-            var telemetryConfig = new TelemetryConfiguration("not-used", channel);
+            TelemetryConfiguration telemetryConfig = new();
+            telemetryConfig.TelemetryChannel = channel;
             telemetryConfig.TelemetryInitializers.Add(new OperationCorrelationTelemetryInitializer());
             this.TelemetryClient = new TelemetryClient(telemetryConfig);
 
-            var services = new ServiceCollection();
+            ServiceCollection services = new();
             if (telemetryClientViaDi)
             {
                 services.AddSingleton(this.TelemetryClient);

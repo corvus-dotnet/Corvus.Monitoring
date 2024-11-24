@@ -7,20 +7,21 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
     using System;
     using System.Collections.Generic;
     using Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    [TestClass]
     public class SourceTaggingExceptionsInstrumentationSpecs : SourceTaggingSpecsBase
     {
         private const string ExistingDetailKey = "Edk";
         private const string ExistingDetailValue = "Edv";
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionWithNoAdditionalInfoIsSentItShouldIncludeSource()
         {
             ExceptionDetail ex1Detail = this.ThrowReportAndCatchException1();
 
             IExceptionsInstrumentation<TestType2> exi2 = this.Context.GetExceptionsInstrumentation<TestType2>();
-            var ex2 = new Exception("Another");
+            Exception ex2 = new("Another");
             exi2.ReportException(ex2);
 
             Assert.AreEqual(2, this.Context.Exceptions.Count, "Exception count");
@@ -34,11 +35,11 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(typeof(TestType2).FullName, ex2Detail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source (1)");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenSourceTypeIsGenericSourceDoesNotIncludeTypeArguments()
         {
             IExceptionsInstrumentation<GenericTestType<string, List<int>>> exig = this.Context.GetExceptionsInstrumentation<GenericTestType<string, List<int>>>();
-            var ex = new Exception("Another");
+            Exception ex = new("Another");
             exig.ReportException(ex);
 
             Assert.AreEqual(1, this.Context.Exceptions.Count, "Exception count");
@@ -48,24 +49,25 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual($"{typeof(SourceTaggingSpecsBase).Namespace}.{nameof(SourceTaggingSpecsBase)}+{nameof(GenericTestType<string, List<int>>)}", exDetail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source (2)");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionWithAdditionalInfoWithNoPropertiesOrMetricsIsSentItShouldIncludeSource()
         {
-            var suppliedDetail = new AdditionalInstrumentationDetail();
+            AdditionalInstrumentationDetail suppliedDetail = new();
             ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
             Assert.AreEqual(1, exDetail.AdditionalDetail!.Properties.Count, "Property count");
             Assert.AreEqual(typeof(TestType1).FullName, exDetail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionWithAdditionalInfoWithPropertiesAndMetricsIsSentItShouldIncludeSourceAndSuppliedProperties()
         {
-            var suppliedDetail = new AdditionalInstrumentationDetail
+            AdditionalInstrumentationDetail suppliedDetail = new()
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
                 Metrics = { { "m1", 42.0 } },
             };
+
             ExceptionDetail exDetail = this.ThrowReportAndCatchException1(suppliedDetail);
 
             Assert.AreEqual(2, exDetail.AdditionalDetail!.Properties.Count, "Property count");
@@ -73,10 +75,10 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(ExistingDetailValue, exDetail.AdditionalDetail!.Properties[ExistingDetailKey], "ExistingDetailKey");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionWithAdditionalInfoWithPropertiesAndMetricsIsSentItShouldPassMetricsThrough()
         {
-            var suppliedDetail = new AdditionalInstrumentationDetail
+            AdditionalInstrumentationDetail suppliedDetail = new()
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
                 Metrics = { { "m1", 42.0 } },
@@ -86,10 +88,10 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreSame(suppliedDetail.Metrics, opDetail.AdditionalDetail!.Metrics);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionWithAdditionalInfoWithPropertiesAndMetricsIsSentItShouldNotModifyInputDictionaries()
         {
-            var suppliedDetail = new AdditionalInstrumentationDetail
+            AdditionalInstrumentationDetail suppliedDetail = new()
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
                 Metrics = { { "m1", 42.0 } },
@@ -103,10 +105,10 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(42.0, suppliedDetail.Metrics["m1"], "Metric m1");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionWithAdditionalInfoWithPropertiesAndNoMetricsIsSentItShouldIncludeSource()
         {
-            var suppliedDetail = new AdditionalInstrumentationDetail
+            AdditionalInstrumentationDetail suppliedDetail = new()
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
             };
@@ -117,10 +119,10 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(ExistingDetailValue, exDetail.AdditionalDetail!.Properties[ExistingDetailKey], "ExistingDetailKey");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionWithAdditionalInfoWithPropertiesAndNoMetricsIsSentMetricsShouldBeNull()
         {
-            var suppliedDetail = new AdditionalInstrumentationDetail
+            AdditionalInstrumentationDetail suppliedDetail = new()
             {
                 Properties = { { ExistingDetailKey, ExistingDetailValue } },
             };
@@ -129,8 +131,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.IsNull(exDetail.AdditionalDetail!.MetricsIfPresent);
         }
 
-        private ExceptionDetail ThrowReportAndCatchException1(
-            AdditionalInstrumentationDetail? additionalDetail = null)
+        private ExceptionDetail ThrowReportAndCatchException1(AdditionalInstrumentationDetail? additionalDetail = null)
         {
             IExceptionsInstrumentation<TestType1> exi1 = this.Context.GetExceptionsInstrumentation<TestType1>();
 

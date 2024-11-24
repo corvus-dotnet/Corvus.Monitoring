@@ -8,14 +8,15 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
     using System.Diagnostics;
     using Corvus.Monitoring.Instrumentation;
     using Microsoft.ApplicationInsights.DataContracts;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Unit tests for Application Insights telemetry for operations.
     /// </summary>
+    [TestClass]
     public class AiOperationsInstrumentationSpecs : AiSpecsBase
     {
-        [Test]
+        [TestMethod]
         public void WhenOperationFinishesTelemetryIsSent()
         {
             const string operationName = "MyOp";
@@ -31,7 +32,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             Assert.AreEqual(this.Ai.Activity!.Id, telemetry.Context.Operation.ParentId);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithUpFrontPropertiesFinishesTelemetryIncludesProperties()
         {
             using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation(
@@ -43,7 +44,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertPropertiesPresent(telemetry);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithPostStartPropertiesFinishesTelemetryIncludesProperties()
         {
             using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
@@ -55,7 +56,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertPropertiesPresent(telemetry);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithUpFrontMetricsFinishesTelemetryIncludesMetrics()
         {
             using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation(
@@ -67,7 +68,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertMetricsPresent(telemetry);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithPostStartMetricsFinishesTelemetryIncludesMetrics()
         {
             using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
@@ -79,7 +80,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertMetricsPresent(telemetry);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithUpFrontPropertiesAndMetricsFinishesTelemetryIncludesPropertiesAndMetrics()
         {
             using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation(
@@ -91,7 +92,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertPropertiesAndMetricsPresent(telemetry);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithPropertiesAndMetricsFinishesTelemetryIncludesPropertiesAndMetrics()
         {
             using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
@@ -103,7 +104,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertPropertiesAndMetricsPresent(telemetry);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithPostStartPropertiesAndMetricsAddedSeparatelyFinishesTelemetryIncludesPropertiesAndMetrics()
         {
             using (IOperationInstance operation = this.Ai.OperationsInstrumentation.StartOperation("op"))
@@ -116,7 +117,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertPropertiesAndMetricsPresent(telemetry);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenChildOperationFinishesTelemetryIncludesParentId()
         {
             string testActivityId = Activity.Current?.Id
