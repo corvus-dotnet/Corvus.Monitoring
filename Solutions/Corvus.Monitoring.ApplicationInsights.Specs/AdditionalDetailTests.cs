@@ -6,7 +6,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
 {
     using Corvus.Monitoring.Instrumentation;
     using Microsoft.ApplicationInsights.DataContracts;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Common code used when testing <see cref="AdditionalInstrumentationDetail"/> handling.
@@ -25,8 +25,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// <summary>
         /// Gets an <see cref="AdditionalInstrumentationDetail"/> with properties and metrics.
         /// </summary>
-        public static AdditionalInstrumentationDetail DetailWithPropertiesAndMetrics { get; } =
-            new AdditionalInstrumentationDetail
+        public static AdditionalInstrumentationDetail DetailWithPropertiesAndMetrics { get; } = new()
             {
                 Properties =
                     {
@@ -43,14 +42,12 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// <summary>
         /// Gets an <see cref="AdditionalInstrumentationDetail"/> with properties.
         /// </summary>
-        public static AdditionalInstrumentationDetail DetailWithProperties { get; } =
-            new AdditionalInstrumentationDetail(DetailWithPropertiesAndMetrics.Properties, null);
+        public static AdditionalInstrumentationDetail DetailWithProperties { get; } = new(DetailWithPropertiesAndMetrics.Properties, null);
 
         /// <summary>
         /// Gets an <see cref="AdditionalInstrumentationDetail"/> with metrics.
         /// </summary>
-        public static AdditionalInstrumentationDetail DetailWithMetrics { get; } =
-            new AdditionalInstrumentationDetail(null, DetailWithPropertiesAndMetrics.Metrics);
+        public static AdditionalInstrumentationDetail DetailWithMetrics { get; } = new(null, DetailWithPropertiesAndMetrics.Metrics);
 
         /// <summary>
         /// Verifies that the telemetry reports the same properties as

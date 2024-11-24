@@ -6,8 +6,9 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using System.Linq;
     using Corvus.Monitoring.Instrumentation.Abstractions.Specs.Fakes;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    [TestClass]
     public class SourceTaggingOperationsInstrumentationSpecs : SourceTaggingSpecsBase
     {
         private const string OpName1 = "Op1";
@@ -15,7 +16,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         private const string ExistingDetailKey = "Edk";
         private const string ExistingDetailValue = "Edv";
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithNoAdditionalInfoIsSentItShouldIncludeSource()
         {
             OperationDetail op1Detail = this.ReportOperation1();
@@ -36,7 +37,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(typeof(TestType2).FullName, op2Detail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source (1)");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithAdditionalInfoWithNoPropertiesOrMetricsIsSentItShouldIncludeSource()
         {
             var suppliedDetail = new AdditionalInstrumentationDetail();
@@ -46,7 +47,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(typeof(TestType1).FullName, opDetail.AdditionalDetail!.Properties[this.Context.SourcePropertyName], "Source");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithAdditionalInfoWithPropertiesAndMetricsIsSentItShouldIncludeSourceAndSuppliedProperties()
         {
             var suppliedDetail = new AdditionalInstrumentationDetail
@@ -61,7 +62,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(ExistingDetailValue, opDetail.AdditionalDetail!.Properties[ExistingDetailKey], "ExistingDetailKey");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithAdditionalInfoWithPropertiesAndMetricsIsSentItShouldPassMetricsThrough()
         {
             var suppliedDetail = new AdditionalInstrumentationDetail
@@ -74,7 +75,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreSame(suppliedDetail.Metrics, opDetail.AdditionalDetail!.Metrics);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithAdditionalInfoWithPropertiesAndMetricsIsSentItShouldNotModifyInputDictionaries()
         {
             var suppliedDetail = new AdditionalInstrumentationDetail
@@ -91,7 +92,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(42.0, suppliedDetail.Metrics["m1"], "Metric m1");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithAdditionalInfoWithPropertiesAndNoMetricsIsSentItShouldIncludeSource()
         {
             var suppliedDetail = new AdditionalInstrumentationDetail
@@ -105,7 +106,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.AreEqual(ExistingDetailValue, opDetail.AdditionalDetail!.Properties[ExistingDetailKey], "ExistingDetailKey");
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationWithAdditionalInfoWithPropertiesAndNoMetricsIsSentMetricsShouldBeNull()
         {
             var suppliedDetail = new AdditionalInstrumentationDetail
@@ -117,7 +118,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.IsNull(opDetail.AdditionalDetail!.MetricsIfPresent);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationHasNotYetFinishedUnderlyingOperationShouldNotBeDisposed()
         {
             IOperationsInstrumentation<TestType1> opi1 = this.Context.GetOperationsInstrumentation<TestType1>();
@@ -129,7 +130,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             }
         }
 
-        [Test]
+        [TestMethod]
         public void WhenOperationHasFinishedUnderlyingOperationShouldBeDisposed()
         {
             IOperationsInstrumentation<TestType1> opi1 = this.Context.GetOperationsInstrumentation<TestType1>();
@@ -142,7 +143,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Assert.IsTrue(opDetail.IsDisposed);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenFurtherDetailsSuppliedTheyShouldBePassedStraightThrough()
         {
             IOperationsInstrumentation<TestType1> opi1 = this.Context.GetOperationsInstrumentation<TestType1>();

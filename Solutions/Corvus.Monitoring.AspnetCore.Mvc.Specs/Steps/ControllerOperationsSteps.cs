@@ -9,11 +9,11 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Steps
     using Corvus.Monitoring.AspnetCore.Mvc.Demo.Controllers;
     using Corvus.Monitoring.AspnetCore.Mvc.Specs.Bindings;
     using Corvus.Monitoring.AspnetCore.Mvc.Specs.Fakes;
-    using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Reqnroll;
 
     [Binding]
-    public class ControllerOperationsSteps : Steps
+    public class ControllerOperationsSteps
     {
         private static readonly string ExpectedActionExecutionOperationName = $"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}";
         private static readonly string ExpectedResultExecutionOperationName = $"{typeof(HomeController).FullName}.{nameof(HomeController.Index)}::ResultExecution";

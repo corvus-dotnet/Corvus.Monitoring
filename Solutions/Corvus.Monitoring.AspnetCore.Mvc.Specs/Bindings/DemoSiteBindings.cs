@@ -4,7 +4,7 @@
 
 namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Bindings
 {
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     /// <summary>
     /// Bindings that start and stop the test server hosting the demo site.

@@ -5,7 +5,7 @@
 namespace Corvus.Monitoring.ApplicationInsights.Specs
 {
     using System;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Base class of tests for Application Insights telemetry.
@@ -46,7 +46,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// for the tests to be realistic, since there will be one in the scenarios in which we
         /// are using Application Insights in production.
         /// </remarks>
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             this.Ai = new AiTestContext(this.telemetryClientViaDi);
@@ -55,7 +55,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         /// <summary>
         /// Stops the activity created for the test.
         /// </summary>
-        [TearDown]
+        [TestCleanup]
         public void Teardown()
         {
             this.Ai.Dispose();
