@@ -4,11 +4,11 @@
     "net8.0": {
       "Endjin.RecommendedPractices.GitHub": {
         "type": "Direct",
-        "requested": "[2.1.13, )",
-        "resolved": "2.1.13",
-        "contentHash": "ZefZtlE4NE4ajKMzUtdeb9+SSWv95gutAykQmTEuj2Ln13/1etgxha9QFhrALHr+ewvUH7M3X1qh9HBmWMLRFg==",
+        "requested": "[2.1.14, )",
+        "resolved": "2.1.14",
+        "contentHash": "87FGP9G88n999p4Xzd0v+V1eigr9RpK08/Ihz7gSvabcss+9+u76IecDokCVHoS5MyR0c6YhVkncKXnKbwYE7g==",
         "dependencies": {
-          "Endjin.RecommendedPractices": "2.1.13",
+          "Endjin.RecommendedPractices": "2.1.14",
           "Microsoft.SourceLink.GitHub": "1.1.1"
         }
       },
@@ -62,9 +62,9 @@
       },
       "Roslynator.Analyzers": {
         "type": "Direct",
-        "requested": "[4.12.4, )",
-        "resolved": "4.12.4",
-        "contentHash": "isl8hAh7yFNjyBEC4YlTSi+xGBblqBUC/2MCMmnBPwuXPewb7XYnMRzT3vXbP/gOGwT8hZUOy1g/aRH3lAF/NQ=="
+        "requested": "[4.12.9, )",
+        "resolved": "4.12.9",
+        "contentHash": "X6lDpN/D5wuinq37KIx+l3GSUe9No+8bCjGBTI5sEEtxapLztkHg6gzNVhMXpXw8P+/5gFYxTXJ5Pf8O4iNz/w=="
       },
       "StyleCop.Analyzers": {
         "type": "Direct",
@@ -82,8 +82,8 @@
       },
       "Endjin.RecommendedPractices": {
         "type": "Transitive",
-        "resolved": "2.1.13",
-        "contentHash": "ZXMVKFaBJYaAfRKS/Uv8kUANDsEj2L9H5L4XVXyZULI0UANqZ/ROVTpOqulkukf3UFc/jnnVG2EfByynTiztDg==",
+        "resolved": "2.1.14",
+        "contentHash": "6I3Gb6CHHzZ6+a6IwzFAw4ffpuSRW25ddMG9cdsfzDZ5FUB9wxlEtLOFWTmQu/IbysOGDFjb+LAAlk2GXTZESg==",
         "dependencies": {
           "Microsoft.Build.Tasks.Git": "1.1.1"
         }
