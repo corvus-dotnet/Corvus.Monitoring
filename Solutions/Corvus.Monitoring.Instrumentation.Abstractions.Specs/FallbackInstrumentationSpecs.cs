@@ -146,7 +146,8 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Get(ref this.exceptionsInstrumentation);
             Get(ref this.operationsInstrumentation);
 
-            void Get<T>(ref T target)
+            void Get<T>(ref T? target)
+                where T : notnull
             {
                 target = sp.GetRequiredService<T>();
             }
