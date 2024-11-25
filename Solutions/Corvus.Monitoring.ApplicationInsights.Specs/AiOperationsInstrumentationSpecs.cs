@@ -29,7 +29,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             RequestTelemetry telemetry = this.GetSingleRequestTelemetry();
             Assert.AreEqual(operationName, telemetry.Name);
             Assert.AreEqual(this.Ai.Activity!.RootId, telemetry.Context.Operation.Id);
-            Assert.AreEqual(this.Ai.Activity!.Id, telemetry.Context.Operation.ParentId);
+            Assert.AreEqual(this.Ai.Activity!.SpanId.ToString(), telemetry.Context.Operation.ParentId);
         }
 
         [TestMethod]
@@ -120,19 +120,20 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
         [TestMethod]
         public void WhenChildOperationFinishesTelemetryIncludesParentId()
         {
-            string testActivityId = Activity.Current?.Id
+            string testActivitySpanId = Activity.Current?.SpanId.ToString()
                 ?? throw new InvalidOperationException("Test expects a current Activity");
 
-            string parentOpActivityId;
-            string childOpActivityId;
+            string parentOpSpanId;
+            string childOpSpanId;
+
             using (this.Ai.OperationsInstrumentation.StartOperation("ParentOp"))
             {
-                parentOpActivityId = Activity.Current?.Id
+                parentOpSpanId = Activity.Current?.SpanId.ToString()
                     ?? throw new InvalidOperationException("Test expects a current Activity");
 
                 using (this.Ai.OperationsInstrumentation.StartOperation("ChildOp"))
                 {
-                    childOpActivityId = Activity.Current?.Id
+                    childOpSpanId = Activity.Current?.SpanId.ToString()
                         ?? throw new InvalidOperationException("Test expects a current Activity");
                 }
             }
@@ -156,10 +157,10 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             // test setup, the one created to represent the parent activity started
             // in this test, and the one created to represent the child activity
             // created in this test.
-            Assert.AreEqual(testActivityId, parent.Context.Operation.ParentId);
-            Assert.AreEqual(parentOpActivityId, parent.Id);
-            Assert.AreEqual(parentOpActivityId, child.Context.Operation.ParentId);
-            Assert.AreEqual(childOpActivityId, child.Id);
+            Assert.AreEqual(testActivitySpanId, parent.Context.Operation.ParentId);
+            Assert.AreEqual(parentOpSpanId, parent.Id);
+            Assert.AreEqual(parentOpSpanId, child.Context.Operation.ParentId);
+            Assert.AreEqual(childOpSpanId, child.Id);
         }
 
         private RequestTelemetry GetSingleRequestTelemetry()

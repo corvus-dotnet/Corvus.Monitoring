@@ -23,7 +23,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             ExceptionTelemetry telemetry = this.GetSingleExceptionTelemetry();
             Assert.AreSame(ax, telemetry.Exception);
             Assert.AreEqual(this.Ai.Activity!.RootId, telemetry.Context.Operation.Id);
-            Assert.AreEqual(this.Ai.Activity!.Id, telemetry.Context.Operation.ParentId);
+            Assert.AreEqual(this.Ai.Activity!.SpanId.ToString(), telemetry.Context.Operation.ParentId);
         }
 
         [TestMethod]
