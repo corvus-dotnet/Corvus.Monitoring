@@ -6,7 +6,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using System;
     using Microsoft.Extensions.DependencyInjection;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Ensure that fallback 'do nothing' instrumentation implementations are available by default,
@@ -36,6 +36,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
     /// ensure that they get well out of the way when they are not needed.
     /// </para>
     /// </remarks>
+    [TestClass]
     public class FallbackInstrumentationSpecs
     {
         private ServiceCollection? services;
@@ -55,14 +56,14 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             set => this.fakeInstrumentationSinks = value ?? throw new ArgumentNullException();
         }
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             this.Services = new ServiceCollection();
             this.FakeInstrumentationSinks = new FakeInstrumentationSinks();
         }
 
-        [Test]
+        [TestMethod]
         public void WhenAddInstrumentationCalledAloneGenericImplementationsCanBeResolvedAndUsedWithoutError()
         {
             this.Services.AddInstrumentation();
@@ -72,7 +73,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             // are no tests to check that the information went anywhere in this case.
         }
 
-        [Test]
+        [TestMethod]
         public void WhenAddInstrumentationCalledAfterNonGenericImplementationsAddedPresuppliedImplementationsAreUsed()
         {
             this.FakeInstrumentationSinks.AddNonGenericImplementationsToServices(this.Services);
@@ -81,7 +82,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             this.ResolveAndCheckInstrumentationReachesSuppliedNonGenericImplementation();
         }
 
-        [Test]
+        [TestMethod]
         public void WhenAddInstrumentationCalledBeforeNonGenericImplementationsAddedPresuppliedImplementationsAreUsed()
         {
             this.Services.AddInstrumentation();
@@ -90,7 +91,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             this.ResolveAndCheckInstrumentationReachesSuppliedNonGenericImplementation();
         }
 
-        [Test]
+        [TestMethod]
         public void WhenAddInstrumentationCalledAfterGenericImplementationsAddedPresuppliedImplementationsAreUsed()
         {
             this.FakeInstrumentationSinks.AddGenericImplementationsToServices(this.Services);
@@ -99,7 +100,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             this.ResolveAndCheckInstrumentationReachesSuppliedGenericImplementation();
         }
 
-        [Test]
+        [TestMethod]
         public void WhenAddInstrumentationCalledBeforeGenericImplementationsAddedPresuppliedImplementationsAreUsed()
         {
             this.Services.AddInstrumentation();
@@ -145,7 +146,8 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
             Get(ref this.exceptionsInstrumentation);
             Get(ref this.operationsInstrumentation);
 
-            void Get<T>(ref T target)
+            void Get<T>(ref T? target)
+                where T : notnull
             {
                 target = sp.GetRequiredService<T>();
             }

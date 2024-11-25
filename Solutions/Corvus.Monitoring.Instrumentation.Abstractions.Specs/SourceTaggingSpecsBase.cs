@@ -5,7 +5,7 @@
 namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
 {
     using System;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Base class of tests for source tagging instrumentation interfaces.
@@ -32,7 +32,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         /// non-generic interfaces that enable us to test whether the calls were forwarded and,
         /// where required, augmented.
         /// </remarks>
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             this.Context = new SourceTaggingTestContext();
@@ -41,7 +41,7 @@ namespace Corvus.Monitoring.Instrumentation.Abstractions.Specs
         /// <summary>
         /// Stops the activity created for the test.
         /// </summary>
-        [TearDown]
+        [TestCleanup]
         public void Teardown()
         {
             this.Context.Dispose();

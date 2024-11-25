@@ -7,14 +7,15 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
     using System;
     using Corvus.Monitoring.Instrumentation;
     using Microsoft.ApplicationInsights.DataContracts;
-    using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Unit tests for Application Insights telemetry for exceptions.
     /// </summary>
+    [TestClass]
     public class AiExceptionsInstrumentationSpecs : AiSpecsBase
     {
-        [Test]
+        [TestMethod]
         public void WhenExceptionReportedTelemetryIsSent()
         {
             ArgumentException ax = this.ThrowReportAndCatchException();
@@ -22,10 +23,10 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             ExceptionTelemetry telemetry = this.GetSingleExceptionTelemetry();
             Assert.AreSame(ax, telemetry.Exception);
             Assert.AreEqual(this.Ai.Activity!.RootId, telemetry.Context.Operation.Id);
-            Assert.AreEqual(this.Ai.Activity!.Id, telemetry.Context.Operation.ParentId);
+            Assert.AreEqual(this.Ai.Activity!.SpanId.ToString(), telemetry.Context.Operation.ParentId);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionReportedInsideOperationIncludesRootAndParentIds()
         {
             ArgumentException ax;
@@ -40,7 +41,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             Assert.AreEqual(requestTelemetry.Id, exceptionTelemetry.Context.Operation.ParentId);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionReportedWithPropertiesTelemetryIncludesProperties()
         {
             this.ThrowReportAndCatchException(AdditionalDetailTests.DetailWithProperties);
@@ -49,7 +50,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertPropertiesPresent(telemetry);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionReportedWithMetricsTelemetryIncludesMetrics()
         {
             this.ThrowReportAndCatchException(AdditionalDetailTests.DetailWithMetrics);
@@ -58,7 +59,7 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertMetricsPresent(telemetry);
         }
 
-        [Test]
+        [TestMethod]
         public void WhenExceptionReportedWithPropertiesAndMetricsTelemetryIncludesPropertiesAndMetrics()
         {
             this.ThrowReportAndCatchException(AdditionalDetailTests.DetailWithPropertiesAndMetrics);
@@ -66,14 +67,12 @@ namespace Corvus.Monitoring.ApplicationInsights.Specs
             AdditionalDetailTests.AssertPropertiesAndMetricsPresent(telemetry);
         }
 
-        private ExceptionTelemetry GetSingleExceptionTelemetry()
-            => this.Ai.GetSingleTelemetry<ExceptionTelemetry>();
+        private ExceptionTelemetry GetSingleExceptionTelemetry() => this.Ai.GetSingleTelemetry<ExceptionTelemetry>();
 
         private (ExceptionTelemetry Exception, RequestTelemetry Operation) GetExceptionAndParentRequestTelemetry()
             => this.Ai.GetParentOperationAndExceptionTelemetry<ExceptionTelemetry, RequestTelemetry>();
 
-        private ArgumentException ThrowReportAndCatchException(
-            AdditionalInstrumentationDetail? additionalDetail = null)
+        private ArgumentException ThrowReportAndCatchException(AdditionalInstrumentationDetail? additionalDetail = null)
         {
             ArgumentException ax;
             try

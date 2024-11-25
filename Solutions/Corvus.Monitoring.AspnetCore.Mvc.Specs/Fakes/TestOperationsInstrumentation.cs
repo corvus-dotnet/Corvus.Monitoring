@@ -14,7 +14,7 @@ namespace Corvus.Monitoring.AspnetCore.Mvc.Specs.Fakes
 
         public static TestOperationsInstrumentation Instance { get; } = new TestOperationsInstrumentation();
 
-        public List<TestOperationInstance> StartedOperations { get; } = new List<TestOperationInstance>();
+        public List<TestOperationInstance> StartedOperations { get; } = [];
 
         public IOperationInstance StartOperation(string name, AdditionalInstrumentationDetail? additionalDetail = null)
         {
