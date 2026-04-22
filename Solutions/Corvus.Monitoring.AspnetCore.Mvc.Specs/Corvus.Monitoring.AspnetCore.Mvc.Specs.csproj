@@ -31,7 +31,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.9.2" />
     <PackageReference Include="MSTest.TestFramework" Version="3.9.2" />
-    <PackageReference Include="Reqnroll.MsTest" Version="2.4.1" />
+    <PackageReference Include="Reqnroll.MsTest" Version="3.3.4" />
   </ItemGroup>
 
   <ItemGroup>
