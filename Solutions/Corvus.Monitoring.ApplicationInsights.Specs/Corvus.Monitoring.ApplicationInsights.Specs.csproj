@@ -28,7 +28,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[8.0.*,)" />
-    <PackageReference Include="MSTest" Version="3.9.2" />
+    <PackageReference Include="MSTest" Version="4.2.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Corvus.Monitoring.ApplicationInsights\Corvus.Monitoring.ApplicationInsights.csproj" />
